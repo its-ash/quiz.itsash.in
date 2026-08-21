@@ -6,12 +6,27 @@
   <url><loc>https://quiz.itsash.in/js/03-operators-and-expressions</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
   <url><loc>https://quiz.itsash.in/js/04-control-flow</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
   <url><loc>https://quiz.itsash.in/js/05-functions-and-scope</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://quiz.itsash.in/js/06-strings-and-template-literals</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://quiz.itsash.in/js/07-objects-and-properties</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://quiz.itsash.in/js/08-arrays-and-array-methods</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://quiz.itsash.in/js/09-destructuring-and-spread</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://quiz.itsash.in/js/10-classes-and-prototypes</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
   <url><loc>https://quiz.itsash.in/js/11-this-keyword</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
   <url><loc>https://quiz.itsash.in/js/12-closures-and-lexical-scope</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
   <url><loc>https://quiz.itsash.in/js/13-higher-order-functions</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://quiz.itsash.in/js/14-modules</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://quiz.itsash.in/js/15-callbacks-and-the-event-loop</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://quiz.itsash.in/js/16-promises</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://quiz.itsash.in/js/17-async-await</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://quiz.itsash.in/js/18-error-handling</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://quiz.itsash.in/js/19-the-dom</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://quiz.itsash.in/js/20-events</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
   <url><loc>https://quiz.itsash.in/js/21-web-storage-and-apis</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
   <url><loc>https://quiz.itsash.in/js/22-timers-and-scheduling</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
   <url><loc>https://quiz.itsash.in/js/23-functional-programming</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://quiz.itsash.in/js/25-testing</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://quiz.itsash.in/js/26-performance-and-optimization</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://quiz.itsash.in/js/27-tooling-and-build-systems</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
   <url><loc>https://quiz.itsash.in/js</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
   <url><loc>https://quiz.itsash.in/lua/01-introduction-and-setup</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
   <url><loc>https://quiz.itsash.in/lua</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>

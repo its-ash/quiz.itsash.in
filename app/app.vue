@@ -25,13 +25,13 @@ useHead({
   script: [
     {
       async: true,
-      src: 'https://www.googletagmanager.com/gtag/js?id=G-J1LB55YZY2',
+      src: 'https://www.googletagmanager.com/gtag/js?id=G-QHKG9XZ6RC',
     },
     {
       innerHTML: `window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
-gtag('config', 'G-J1LB55YZY2');`,
+gtag('config', 'G-QHKG9XZ6RC');`,
     },
     {
       type: 'application/ld+json',

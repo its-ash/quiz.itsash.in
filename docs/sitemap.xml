@@ -28,6 +28,7 @@
   <url><loc>https://quiz.itsash.in/rust/02-hello-world-and-cargo</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
   <url><loc>https://quiz.itsash.in/rust/03-variables-and-mutability</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
   <url><loc>https://quiz.itsash.in/rust/04-data-types</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://quiz.itsash.in/rust/05-functions</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
   <url><loc>https://quiz.itsash.in/rust/10-lifetimes</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
   <url><loc>https://quiz.itsash.in/rust/11-structs</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
   <url><loc>https://quiz.itsash.in/rust/12-enums</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>

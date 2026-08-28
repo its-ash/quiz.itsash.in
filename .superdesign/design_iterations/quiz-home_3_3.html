@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>quiz:// — python / strings-and-text</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  html { font-family: 'Inter', ui-sans-serif, system-ui, sans-serif; }
+  .font-mono { font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace; }
+
+  @keyframes blink {
+    0%, 49% { opacity: 1; }
+    50%, 100% { opacity: 0; }
+  }
+  .cursor-blink { animation: blink 1s step-end infinite; }
+
+  .grid-fade {
+    background-image:
+      linear-gradient(to right, rgba(255,255,255,0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255,255,255,0.04) 1px, transparent 1px);
+    background-size: 32px 32px;
+    -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 40%, transparent 100%);
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 40%, transparent 100%);
+  }
+
+  ::selection {
+    background: rgba(255,255,255,0.2);
+    color: #ffffff;
+  }
+
+  /* Minimal python syntax highlighting - accents used sparingly, decorative only */
+  .tok-kw   { color: #ff7ab6; }
+  .tok-str  { color: #a8e07d; }
+  .tok-fn   { color: #7ec3ff; }
+  .tok-com  { color: rgba(255,255,255,0.4); }
+  .tok-num  { color: #ffcb6b; }
+
+  .option-row {
+    transition: border-color .15s ease, background-color .15s ease;
+  }
+  .option-row:hover {
+    border-color: rgba(255,255,255,0.25);
+    background-color: rgba(255,255,255,0.05);
+  }
+
+  details > summary { list-style: none; cursor: pointer; }
+  details > summary::-webkit-details-marker { display: none; }
+  details[open] .chev { transform: rotate(90deg); }
+
+  .answer-glow {
+    box-shadow: 0 0 40px -18px rgba(53,114,165,0.55);
+  }
+</style>
+</head>
+<body class="bg-[#0a0a0a] text-white antialiased">
+
+  <!-- ============ HEADER ============ -->
+  <header class="sticky top-0 z-50 border-b border-white/10 bg-[#0a0a0a]/90 backdrop-blur">
+    <div class="mx-auto max-w-[1440px] px-4 sm:px-8 py-4 flex items-center justify-between gap-4">
+
+      <!-- Logo -->
+      <a href="#" class="flex items-center gap-2 shrink-0">
+        <span class="flex h-8 w-8 items-center justify-center rounded-xl bg-white text-black font-mono font-800 text-sm">
+          &gt;_
+        </span>
+        <span class="font-mono font-700 text-lg tracking-tight">
+          quiz<span class="text-white/40">://</span>
+        </span>
+      </a>
+
+      <!-- Command palette style search -->
+      <div class="hidden md:flex flex-1 max-w-md">
+        <div class="flex w-full items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-4 py-2 transition hover:border-white/20 hover:bg-white/10 cursor-text">
+          <svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="7"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <span class="font-mono text-sm flex-1">Search categories, topics&hellip;</span>
+          <kbd class="hidden lg:inline-flex items-center gap-1 rounded-lg border border-white/10 bg-white/5 px-2 py-1 font-mono text-xs">
+            ⌘K
+          </kbd>
+        </div>
+      </div>
+
+      <!-- Nav -->
+      <nav class="flex items-center gap-4 sm:gap-8">
+        <a href="#" class="hidden sm:inline-block font-mono text-sm hover:opacity-70 transition">categories</a>
+        <a href="#" class="hidden sm:inline-block font-mono text-sm hover:opacity-70 transition">about</a>
+        <a href="#" class="inline-flex items-center rounded-xl border border-white/10 bg-white text-black font-mono text-sm font-600 px-4 py-2 transition hover:bg-white/90">
+          sign in
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ============ BREADCRUMB + GRID BG ============ -->
+  <section class="relative overflow-hidden border-b border-white/10">
+    <div class="absolute inset-0 grid-fade pointer-events-none"></div>
+
+    <div class="relative mx-auto max-w-[1440px] px-4 sm:px-8 pt-8 pb-12 md:pt-10 md:pb-16">
+
+      <!-- Breadcrumb -->
+      <nav class="flex items-center gap-2 font-mono text-xs text-white/50 mb-8">
+        <a href="#" class="hover:text-white transition">quiz://</a>
+        <span>/</span>
+        <a href="#" class="hover:text-white transition">python</a>
+        <span>/</span>
+        <span class="text-white">strings-and-text</span>
+      </nav>
+
+      <!-- Page header -->
+      <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6">
+        <div>
+          <div class="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-4 py-2 mb-6">
+            <span class="h-2 w-2 rounded-full" style="background-color:#3572A5"></span>
+            <span class="font-mono text-xs">python &middot; topic 06</span>
+          </div>
+          <h1 class="font-mono font-800 text-3xl sm:text-4xl lg:text-5xl leading-tight tracking-tight mb-4">
+            Strings &amp; Text
+          </h1>
+          <p class="text-white/70 max-w-xl">
+            Immutability traps, f-string evaluation order, encoding surprises, and the methods
+            that quietly return new objects instead of mutating in place.
+          </p>
+        </div>
+
+        <!-- Progress -->
+        <div class="w-full lg:w-80 shrink-0">
+          <div class="rounded-2xl border border-white/10 bg-[#141414] p-5">
+            <div class="flex items-center justify-between mb-3">
+              <span class="font-mono text-xs text-white/60">progress</span>
+              <span class="font-mono text-xs font-600">Q1&ndash;Q4 of 20</span>
+            </div>
+            <div class="h-2 w-full rounded-full bg-white/10 overflow-hidden">
+              <div class="h-full rounded-full" style="width:20%; background-color:#3572A5"></div>
+            </div>
+            <div class="flex items-center justify-between mt-3">
+              <span class="font-mono text-xs text-white/50">0 answered</span>
+              <span class="font-mono text-xs text-white/50">20%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ QUESTIONS ============ -->
+  <main class="mx-auto max-w-[1440px] px-4 sm:px-8 py-16 md:py-24">
+    <div class="max-w-3xl mx-auto flex flex-col gap-10">
+
+      <!-- ============ Q1 ============ -->
+      <article class="rounded-2xl border border-white/10 bg-[#141414] overflow-hidden transition hover:border-white/20">
+        <div class="p-6 sm:p-8">
+          <div class="flex items-center gap-3 mb-5">
+            <span class="flex h-8 w-8 items-center justify-center rounded-lg border border-white/10 bg-white/5 font-mono font-700 text-xs">01</span>
+            <span class="inline-flex items-center gap-2 rounded-lg border border-white/10 bg-white/5 px-3 py-1 font-mono text-xs text-white/60">
+              <span class="h-1.5 w-1.5 rounded-full" style="background-color:#3572A5"></span>
+              python
+            </span>
+          </div>
+
+          <h2 class="font-mono font-700 text-lg sm:text-xl mb-5">
+            Q1. What does the following code print?
+          </h2>
+
+          <!-- Terminal code window -->
+          <div class="rounded-xl border border-white/10 bg-[#0d0d0d] overflow-hidden mb-6">
+            <div class="flex items-center gap-2 border-b border-white/10 bg-white/5 px-4 py-3">
+              <span class="h-2.5 w-2.5 rounded-full bg-[#ff5f56]"></span>
+              <span class="h-2.5 w-2.5 rounded-full bg-[#ffbd2e]"></span>
+              <span class="h-2.5 w-2.5 rounded-full bg-[#27c93f]"></span>
+              <span class="ml-2 font-mono text-xs text-white/50">snippet.py</span>
+            </div>
+            <pre class="p-5 font-mono text-sm leading-relaxed overflow-x-auto"><code><span class="tok-fn">s</span> = <span class="tok-str">"Hello, World"</span>
+<span class="tok-fn">s</span>.<span class="tok-fn">replace</span>(<span class="tok-str">"World"</span>, <span class="tok-str">"Python"</span>)
+<span class="tok-kw">print</span>(<span class="tok-fn">s</span>)</code></pre>
+          </div>
+
+          <!-- Options -->
+          <div class="flex flex-col gap-3 mb-2">
+            <label class="option-row flex items-center gap-4 rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3 cursor-pointer">
+              <span class="flex h-5 w-5 shrink-0 items-center justify-center rounded-md border border-white/20 font-mono text-[10px] text-white/50">A</span>
+              <span class="font-mono text-sm">Hello, World</span>
+            </label>
+            <label class="option-row flex items-center gap-4 rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3 cursor-pointer">
+              <span class="flex h-5 w-5 shrink-0 items-center justify-center rounded-md border border-white/20 font-mono text-[10px] text-white/50">B</span>
+              <span class="font-mono text-sm">Hello, Python</span>
+            </label>
+            <label class="option-row flex items-center gap-4 rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3 cursor-pointer">
+              <span class="flex h-5 w-5 shrink-0 items-center justify-center rounded-md border border-white/20 font-mono text-[10px] text-white/50">C</span>
+              <span class="font-mono text-sm">TypeError: 'str' object does not support item assignment</span>
+            </label>
+            <label class="option-row flex items-center gap-4 rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3 cursor-pointer">
+              <span class="flex h-5 w-5 shrink-0 items-center justify-center rounded-md border border-white/20 font-mono text-[10px] text-white/50">D</span>
+              <span class="font-mono text-sm">None</span>
+            </label>
+          </div>
+
+          <details class="group mt-5 rounded-xl border border-white/10 bg-white/[0.02] overflow-hidden">
+            <summary class="flex items-center justify-between px-4 py-3 font-mono text-xs text-white/70 hover:text-white transition">
+              <span>Show Answer</span>
+              <svg class="chev h-4 w-4 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="9 6 15 12 9 18"></polyline>
+              </svg>
+            </summary>
+            <div class="answer-glow border-t border-white/10 px-4 py-4 sm:px-5 sm:py-5">
+              <p class="font-mono text-sm font-700 mb-3">
+                Answer: <span class="inline-flex items-center justify-center h-5 w-5 rounded-md bg-white text-black text-[11px] align-middle">A</span>
+                <span class="ml-1">Hello, World</span>
+              </p>
+              <p class="text-sm text-white/70 leading-relaxed">
+                Strings are immutable in Python. <code class="font-mono text-white/90">.replace()</code> (like
+                <code class="font-mono text-white/90">.upper()</code>, <code class="font-mono text-white/90">.strip()</code>,
+                <code class="font-mono text-white/90">.lower()</code>, and every other "modifying" string method) does not
+                change <code class="font-mono text-white/90">s</code> in place &mdash; it computes and returns a brand-new
+                string object. Because the return value here is never assigned back to <code class="font-mono text-white/90">s</code>,
+                the original variable still points at the untouched <code class="font-mono text-white/90">"Hello, World"</code>.
+                Option B is the tempting mistake of assuming methods mutate the receiver, as they do for lists. There's no
+                item assignment happening (C), and <code class="font-mono text-white/90">.replace()</code> returns a string,
+                never <code class="font-mono text-white/90">None</code> (D) &mdash; only a handful of in-place methods like
+                <code class="font-mono text-white/90">list.sort()</code> return <code class="font-mono text-white/90">None</code>.
+              </p>
+            </div>
+          </details>
+        </div>
+      </article>
+
+      <!-- ============ Q2 ============ -->
+      <article class="rounded-2xl border border-white/10 bg-[#141414] overflow-hidden transition hover:border-white/20">
+        <div class="p-6 sm:p-8">
+          <div class="flex items-center gap-3 mb-5">
+            <span class="flex h-8 w-8 items-center justify-center rounded-lg border border-white/10 bg-white/5 font-mono font-700 text-xs">02</span>
+            <span class="inline-flex items-center gap-2 rounded-lg border border-white/10 bg-white/5 px-3 py-1 font-mono text-xs text-white/60">
+              <span class="h-1.5 w-1.5 rounded-full" style="background-color:#3572A5"></span>
+              python
+            </span>
+          </div>
+
+          <h2 class="font-mono font-700 text-lg sm:text-xl mb-2">
+            Q2. A teammate reports that empty/whitespace-only usernames are slipping past validation.
+          </h2>
+          <p class="text-sm text-white/60 mb-5">What does this function actually return for <code class="font-mono text-white/80">validate_username("   ")</code>?</p>
+
+          <!-- Terminal code window -->
+          <div class="rounded-xl border border-white/10 bg-[#0d0d0d] overflow-hidden mb-6">
+            <div class="flex items-center gap-2 border-b border-white/10 bg-white/5 px-4 py-3">
+              <span class="h-2.5 w-2.5 rounded-full bg-[#ff5f56]"></span>
+              <span class="h-2.5 w-2.5 rounded-full bg-[#ffbd2e]"></span>
+              <span class="h-2.5 w-2.5 rounded-full bg-[#27c93f]"></span>
+              <span class="ml-2 font-mono text-xs text-white/50">validate.py</span>
+            </div>
+            <pre class="p-5 font-mono text-sm leading-relaxed overflow-x-auto"><code><span class="tok-kw">def</span> <span class="tok-fn">validate_username</span>(name):
+    name.<span class="tok-fn">strip</span>()
+    <span class="tok-kw">if</span> <span class="tok-fn">len</span>(name) == <span class="tok-num">0</span>:
+        <span class="tok-kw">return</span> <span class="tok-str">"empty"</span>
+    <span class="tok-kw">return</span> name
+
+<span class="tok-kw">print</span>(<span class="tok-fn">validate_username</span>(<span class="tok-str">"   "</span>))</code></pre>
+          </div>
+
+          <!-- Options -->
+          <div class="flex flex-col gap-3 mb-2">
+            <label class="option-row flex items-center gap-4 rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3 cursor-pointer">
+              <span class="flex h-5 w-5 shrink-0 items-center justify-center rounded-md border border-white/20 font-mono text-[10px] text-white/50">A</span>
+              <span class="font-mono text-sm">"empty"</span>
+            </label>
+            <label class="option-row flex items-center gap-4 rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3 cursor-pointer">
+              <span class="flex h-5 w-5 shrink-0 items-center justify-center rounded-md border border-white/20 font-mono text-[10px] text-white/50">B</span>
+              <span class="font-mono text-sm">"&nbsp;&nbsp;&nbsp;" (the three spaces, unchanged)</span>
+            </label>
+            <label class="option-row flex items-center gap-4 rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3 cursor-pointer">
+              <span class="flex h-5 w-5 shrink-0 items-center justify-center rounded-md border border-white/20 font-mono text-[10px] text-white/50">C</span>
+              <span class="font-mono text-sm">"" (empty string)</span>
+            </label>
+            <label class="option-row flex items-center gap-4 rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3 cursor-pointer">
+              <span class="flex h-5 w-5 shrink-0 items-center justify-center rounded-md border border-white/20 font-mono text-[10px] text-white/50">D</span>
+              <span class="font-mono text-sm">Raises AttributeError: 'str' object has no attribute 'strip'</span>
+            </label>
+          </div>
+
+          <details class="group mt-5 rounded-xl border border-white/10 bg-white/[0.02] overflow-hidden">
+            <summary class="flex items-center justify-between px-4 py-3 font-mono text-xs text-white/70 hover:text-white transition">
+              <span>Show Answer</span>
+              <svg class="chev h-4 w-4 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="9 6 15 12 9 18"></polyline>
+              </svg>
+            </summary>
+            <div class="answer-glow border-t border-white/10 px-4 py-4 sm:px-5 sm:py-5">
+              <p class="font-mono text-sm font-700 mb-3">
+                Answer: <span class="inline-flex items-center justify-center h-5 w-5 rounded-md bg-white text-black text-[11px] align-middle">B</span>
+                <span class="ml-1">"&nbsp;&nbsp;&nbsp;" (the three spaces, unchanged)</span>
+              </p>
+              <p class="text-sm text-white/70 leading-relaxed">
+                <code class="font-mono text-white/90">name.strip()</code> returns a new stripped string, but that result is
+                discarded &mdash; the local variable <code class="font-mono text-white/90">name</code> still refers to the
+                original three-space string. <code class="font-mono text-white/90">len(name)</code> is therefore
+                <code class="font-mono text-white/90">3</code>, not <code class="font-mono text-white/90">0</code>, so the
+                <code class="font-mono text-white/90">"empty"</code> branch never runs and the untrimmed spaces are returned
+                as if they were a valid username. This is the single most common beginner bug with immutable strings; the
+                fix is <code class="font-mono text-white/90">name = name.strip()</code>. Nothing here raises an error (D),
+                and it never reaches <code class="font-mono text-white/90">""</code> (C) because that would require
+                reassignment first.
+              </p>
+            </div>
+          </details>
+        </div>
+      </article>
+
+      <!-- ============ Q3 ============ -->
+      <article class="rounded-2xl border border-white/10 bg-[#141414] overflow-hidden transition hover:border-white/20">
+        <div class="p-6 sm:p-8">
+          <div class="flex items-center gap-3 mb-5">
+            <span class="flex h-8 w-8 items-center justify-center rounded-lg border border-white/10 bg-white/5 font-mono font-700 text-xs">03</span>
+            <span class="inline-flex items-center gap-2 rounded-lg border border-white/10 bg-white/5 px-3 py-1 font-mono text-xs text-white/60">
+              <span class="h-1.5 w-1.5 rounded-full" style="background-color:#3572A5"></span>
+              python
+            </span>
+          </div>
+
+          <h2 class="font-mono font-700 text-lg sm:text-xl mb-5">
+            Q3. What gets printed, and in what order?
+          </h2>
+
+          <!-- Terminal code window -->
+          <div class="rounded-xl border border-white/10 bg-[#0d0d0d] overflow-hidden mb-6">
+            <div class="flex items-center gap-2 border-b border-white/10 bg-white/5 px-4 py-3">
+              <span class="h-2.5 w-2.5 rounded-full bg-[#ff5f56]"></span>
+              <span class="h-2.5 w-2.5 rounded-full bg-[#ffbd2e]"></span>
+              <span class="h-2.5 w-2.5 rounded-full bg-[#27c93f]"></span>
+              <span class="ml-2 font-mono text-xs text-white/50">fstring_order.py</span>
+            </div>
+            <pre class="p-5 font-mono text-sm leading-relaxed overflow-x-auto"><code><span class="tok-kw">def</span> <span class="tok-fn">log</span>(msg):
+    <span class="tok-kw">print</span>(<span class="tok-str">f"LOG: {msg}"</span>)
+    <span class="tok-kw">return</span> msg.<span class="tok-fn">upper</span>()
+
+name = <span class="tok-str">"world"</span>
+greeting = <span class="tok-str">f"Hello, {</span><span class="tok-fn">log</span><span class="tok-str">(name)}!"</span>
+<span class="tok-kw">print</span>(greeting)</code></pre>
+          </div>
+
+          <!-- Options -->
+          <div class="flex flex-col gap-3 mb-2">
+            <label class="option-row flex items-center gap-4 rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3 cursor-pointer">
+              <span class="flex h-5 w-5 shrink-0 items-center justify-center rounded-md border border-white/20 font-mono text-[10px] text-white/50">A</span>
+              <span class="font-mono text-sm">Hello, WORLD! then LOG: world</span>
+            </label>
+            <label class="option-row flex items-center gap-4 rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3 cursor-pointer">
+              <span class="flex h-5 w-5 shrink-0 items-center justify-center rounded-md border border-white/20 font-mono text-[10px] text-white/50">B</span>
+              <span class="font-mono text-sm">LOG: WORLD then Hello, WORLD!</span>
+            </label>
+            <label class="option-row flex items-center gap-4 rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3 cursor-pointer">
+              <span class="flex h-5 w-5 shrink-0 items-center justify-center rounded-md border border-white/20 font-mono text-[10px] text-white/50">C</span>
+              <span class="font-mono text-sm">LOG: world then Hello, WORLD!</span>
+            </label>
+            <label class="option-row flex items-center gap-4 rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3 cursor-pointer">
+              <span class="flex h-5 w-5 shrink-0 items-center justify-center rounded-md border border-white/20 font-mono text-[10px] text-white/50">D</span>
+              <span class="font-mono text-sm">Error &mdash; you can't call functions inside an f-string's braces</span>
+            </label>
+          </div>
+
+          <details class="group mt-5 rounded-xl border border-white/10 bg-white/[0.02] overflow-hidden">
+            <summary class="flex items-center justify-between px-4 py-3 font-mono text-xs text-white/70 hover:text-white transition">
+              <span>Show Answer</span>
+              <svg class="chev h-4 w-4 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="9 6 15 12 9 18"></polyline>
+              </svg>
+            </summary>
+            <div class="answer-glow border-t border-white/10 px-4 py-4 sm:px-5 sm:py-5">
+              <p class="font-mono text-sm font-700 mb-3">
+                Answer: <span class="inline-flex items-center justify-center h-5 w-5 rounded-md bg-white text-black text-[11px] align-middle">C</span>
+                <span class="ml-1">LOG: world then Hello, WORLD!</span>
+              </p>
+              <p class="text-sm text-white/70 leading-relaxed">
+                f-strings evaluate embedded expressions eagerly, left to right, at the point the f-string literal is
+                executed &mdash; before the final string is assembled. So <code class="font-mono text-white/90">log(name)</code>
+                runs first (printing <code class="font-mono text-white/90">"LOG: world"</code> since
+                <code class="font-mono text-white/90">msg</code> is still the original lowercase arg at print time inside
+                <code class="font-mono text-white/90">log</code>), returns <code class="font-mono text-white/90">"WORLD"</code>,
+                and only then does the f-string interpolate that return value into
+                <code class="font-mono text-white/90">"Hello, WORLD!"</code>, which prints second. Functions are fully valid
+                inside f-string braces (ruling out D); the return value (<code class="font-mono text-white/90">"WORLD"</code>),
+                not the pre-call value, is what gets interpolated (ruling out A/B ordering confusion).
+              </p>
+            </div>
+          </details>
+        </div>
+      </article>
+
+      <!-- ============ Q4 (original) ============ -->
+      <article class="rounded-2xl border border-white/10 bg-[#141414] overflow-hidden transition hover:border-white/20">
+        <div class="p-6 sm:p-8">
+          <div class="flex items-center gap-3 mb-5">
+            <span class="flex h-8 w-8 items-center justify-center rounded-lg border border-white/10 bg-white/5 font-mono font-700 text-xs">04</span>
+            <span class="inline-flex items-center gap-2 rounded-lg border border-white/10 bg-white/5 px-3 py-1 font-mono text-xs text-white/60">
+              <span class="h-1.5 w-1.5 rounded-full" style="background-color:#3572A5"></span>
+              python
+            </span>
+          </div>
+
+          <h2 class="font-mono font-700 text-lg sm:text-xl mb-5">
+            Q4. What does this print, and why does the second line differ from what most people expect?
+          </h2>
+
+          <!-- Terminal code window -->
+          <div class="rounded-xl border border-white/10 bg-[#0d0d0d] overflow-hidden mb-6">
+            <div class="flex items-center gap-2 border-b border-white/10 bg-white/5 px-4 py-3">
+              <span class="h-2.5 w-2.5 rounded-full bg-[#ff5f56]"></span>
+              <span class="h-2.5 w-2.5 rounded-full bg-[#ffbd2e]"></span>
+              <span class="h-2.5 w-2.5 rounded-full bg-[#27c93f]"></span>
+              <span class="ml-2 font-mono text-xs text-white/50">identity.py</span>
+            </div>
+            <pre class="p-5 font-mono text-sm leading-relaxed overflow-x-auto"><code>a = <span class="tok-str">"café"</span>
+b = <span class="tok-str">"café"</span>
+<span class="tok-kw">print</span>(a <span class="tok-kw">is</span> b)
+
+x = <span class="tok-str">"café"</span>.<span class="tok-fn">encode</span>(<span class="tok-str">"utf-8"</span>)
+y = <span class="tok-str">"café"</span>.<span class="tok-fn">encode</span>(<span class="tok-str">"latin-1"</span>)
+<span class="tok-kw">print</span>(x == y)</code></pre>
+          </div>
+
+          <!-- Options -->
+          <div class="flex flex-col gap-3 mb-2">
+            <label class="option-row flex items-center gap-4 rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3 cursor-pointer">
+              <span class="flex h-5 w-5 shrink-0 items-center justify-center rounded-md border border-white/20 font-mono text-[10px] text-white/50">A</span>
+              <span class="font-mono text-sm">True then True &mdash; identical text always compares and encodes the same</span>
+            </label>
+            <label class="option-row flex items-center gap-4 rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3 cursor-pointer">
+              <span class="flex h-5 w-5 shrink-0 items-center justify-center rounded-md border border-white/20 font-mono text-[10px] text-white/50">B</span>
+              <span class="font-mono text-sm">True (or possibly False, interning is not guaranteed) then False &mdash; UTF-8 and Latin-1 encode "é" to different byte sequences</span>
+            </label>
+            <label class="option-row flex items-center gap-4 rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3 cursor-pointer">
+              <span class="flex h-5 w-5 shrink-0 items-center justify-center rounded-md border border-white/20 font-mono text-[10px] text-white/50">C</span>
+              <span class="font-mono text-sm">False then True &mdash; strings are never interned, but all single-byte-safe encodings agree</span>
+            </label>
+            <label class="option-row flex items-center gap-4 rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3 cursor-pointer">
+              <span class="flex h-5 w-5 shrink-0 items-center justify-center rounded-md border border-white/20 font-mono text-[10px] text-white/50">D</span>
+              <span class="font-mono text-sm">UnicodeEncodeError on the "latin-1" line because café is not ASCII</span>
+            </label>
+          </div>
+
+          <details class="group mt-5 rounded-xl border border-white/10 bg-white/[0.02] overflow-hidden">
+            <summary class="flex items-center justify-between px-4 py-3 font-mono text-xs text-white/70 hover:text-white transition">
+              <span>Show Answer</span>
+              <svg class="chev h-4 w-4 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="9 6 15 12 9 18"></polyline>
+              </svg>
+            </summary>
+            <div class="answer-glow border-t border-white/10 px-4 py-4 sm:px-5 sm:py-5">
+              <p class="font-mono text-sm font-700 mb-3">
+                Answer: <span class="inline-flex items-center justify-center h-5 w-5 rounded-md bg-white text-black text-[11px] align-middle">B</span>
+                <span class="ml-1">True (or possibly False) then False</span>
+              </p>
+              <p class="text-sm text-white/70 leading-relaxed">
+                <strong>Idiom:</strong> <code class="font-mono text-white/90">a is b</code> checks object identity, not equality
+                &mdash; it happens to often print <code class="font-mono text-white/90">True</code> here because CPython
+                aggressively interns short string literals that look like identifiers at compile time, but this is a CPython
+                implementation detail, never a language guarantee (a longer or dynamically-built string would reliably be
+                <code class="font-mono text-white/90">False</code>). Never rely on <code class="font-mono text-white/90">is</code>
+                for string comparison &mdash; use <code class="font-mono text-white/90">==</code>. Second: encoding is not
+                canonical. <code class="font-mono text-white/90">"café".encode("utf-8")</code> represents <code class="font-mono text-white/90">é</code>
+                as the two bytes <code class="font-mono text-white/90">b'\xc3\xa9'</code>, while
+                <code class="font-mono text-white/90">"café".encode("latin-1")</code> represents it as the single byte
+                <code class="font-mono text-white/90">b'\xe9'</code> &mdash; same text, different byte sequences, so
+                <code class="font-mono text-white/90">x == y</code> is <code class="font-mono text-white/90">False</code>.
+                Option D is wrong because Latin-1 covers the full 0&ndash;255 range and happily encodes
+                <code class="font-mono text-white/90">é</code> (U+00E9) without error; the danger with Latin-1 is silent
+                <em>mis</em>decoding of higher Unicode code points, not an exception here.
+              </p>
+            </div>
+          </details>
+        </div>
+      </article>
+
+      <!-- ============ PAGINATION ============ -->
+      <div class="flex items-center justify-between pt-4">
+        <span class="font-mono text-xs text-white/40">&larr; previous topic</span>
+        <a href="#" class="inline-flex items-center gap-2 rounded-xl bg-white text-black font-mono font-600 text-sm px-6 py-3 transition hover:bg-white/90">
+          Continue to Q5&ndash;Q8
+          <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </a>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="border-t border-white/10">
+    <div class="mx-auto max-w-[1440px] px-4 sm:px-8 py-12 flex flex-col sm:flex-row items-center justify-between gap-8">
+      <div class="flex items-center gap-2">
+        <span class="flex h-8 w-8 items-center justify-center rounded-xl bg-white text-black font-mono font-800 text-sm">
+          &gt;_
+        </span>
+        <span class="font-mono font-700 text-sm">
+          quiz<span class="text-white/40">://</span>
+        </span>
+        <span class="font-mono text-xs text-white/60 ml-4">&copy; 2026 &mdash; all rights reserved</span>
+      </div>
+      <div class="flex items-center gap-8">
+        <a href="#" class="font-mono text-xs text-white/60 hover:text-white transition">github</a>
+        <a href="#" class="font-mono text-xs text-white/60 hover:text-white transition">docs</a>
+        <a href="#" class="font-mono text-xs text-white/60 hover:text-white transition">status</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

@@ -21,19 +21,9 @@ const { data: page, pending } = await useAsyncData(
       return readme
     }
 
-    return null
+    throw createError({ statusCode: 404, statusMessage: 'Page not found', fatal: true })
   },
   { watch: [() => route.path] }
-)
-
-watch(
-  [page, pending],
-  () => {
-    if (!pending.value && !page.value) {
-      throw createError({ statusCode: 404, statusMessage: 'Page not found', fatal: true })
-    }
-  },
-  { immediate: true }
 )
 
 const breadcrumbs = computed(() => {
@@ -52,6 +42,13 @@ const breadcrumbs = computed(() => {
   }
   return crumbs
 })
+
+const isCategoryPage = computed(() => {
+  const segments = normalizePath(route.path).split('/').filter(Boolean)
+  return segments.length === 1
+})
+
+const categorySlug = computed(() => normalizePath(route.path).split('/').filter(Boolean)[0] || '')
 
 const pageTitle = computed(() => {
   const title = page.value?.title || page.value?.meta?.title
@@ -154,27 +151,29 @@ definePageMeta({
 </script>
 
 <template>
-  <section class="relative z-10 py-12 md:py-16">
+  <CategoryPage v-if="isCategoryPage && page" :page="page" :slug="categorySlug" />
+
+  <section v-else class="relative z-10 py-12 md:py-16">
     <ReadingProgress />
 
-    <div class="mx-auto max-w-6xl px-6 md:px-8 lg:px-12">
+    <div class="mx-auto max-w-[1440px] px-4 sm:px-8">
       <nav aria-label="Breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList"
-        class="mb-10 flex flex-wrap items-center gap-1.5 font-mono text-xs uppercase tracking-widest text-c-muted-fg">
+        class="mb-10 flex flex-wrap items-center gap-2 font-mono text-xs text-c-muted-fg">
         <template v-for="(crumb, i) in breadcrumbs" :key="crumb.to">
           <meta itemprop="position" :content="i + 1" />
-          <NuxtLink :to="crumb.to" itemprop="item" class="py-1 transition-opacity duration-100 hover:opacity-60"
+          <NuxtLink :to="crumb.to" itemprop="item" class="py-1 transition hover:text-c-fg"
             :class="{ 'text-c-fg': i === breadcrumbs.length - 1 }">
             <span itemprop="name">{{ crumb.label }}</span>
           </NuxtLink>
-          <span v-if="i < breadcrumbs.length - 1" class="text-c-fg" aria-hidden="true">/</span>
+          <span v-if="i < breadcrumbs.length - 1" class="text-c-muted-fg/60" aria-hidden="true">/</span>
         </template>
       </nav>
 
-      <article class="md-prose" itemscope itemtype="https://schema.org/Article">
+      <article class="md-prose mx-auto max-w-3xl" itemscope itemtype="https://schema.org/Article">
         <meta itemprop="author" content="quiz" />
         <meta itemprop="publisher" content="quiz" />
         <meta itemprop="wordCount" :content="wordCount" />
-        <div class="not-prose mb-12 flex items-center justify-between gap-4 border-b-[2px] border-c-fg pb-6">
+        <div class="not-prose mb-12 flex items-center justify-between gap-4 border-b border-c-border-light pb-6">
           <BackButton label="Back" />
         </div>
 
@@ -183,7 +182,7 @@ definePageMeta({
           <span class="code-spinner" style="width: 1.5rem; height: 1.5rem; border-width: 2px;" />
         </div>
 
-        <div class="not-prose mt-16 flex items-center justify-between gap-4 border-t-[2px] border-c-fg pt-6">
+        <div class="not-prose mt-16 flex items-center justify-between gap-4 border-t border-c-border-light pt-6">
           <BackButton label="Go back" />
         </div>
       </article>

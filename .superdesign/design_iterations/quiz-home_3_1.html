@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>quiz:// — pick a track</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  html { font-family: 'Inter', ui-sans-serif, system-ui, sans-serif; }
+  .font-mono { font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace; }
+
+  @keyframes blink {
+    0%, 49% { opacity: 1; }
+    50%, 100% { opacity: 0; }
+  }
+  .cursor-blink { animation: blink 1s step-end infinite; }
+
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.8); }
+  }
+  .pulse-dot { animation: pulse-dot 1.6s ease-in-out infinite; }
+
+  .grid-fade {
+    background-image:
+      linear-gradient(to right, rgba(255,255,255,0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255,255,255,0.04) 1px, transparent 1px);
+    background-size: 32px 32px;
+    -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 40%, transparent 100%);
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 40%, transparent 100%);
+  }
+
+  .dotted-fade {
+    background-image: radial-gradient(rgba(255,255,255,0.14) 1px, transparent 1px);
+    background-size: 14px 14px;
+    -webkit-mask-image: linear-gradient(to bottom, black, transparent);
+    mask-image: linear-gradient(to bottom, black, transparent);
+  }
+
+  ::selection {
+    background: rgba(255,255,255,0.2);
+    color: #ffffff;
+  }
+
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track { background: #0a0a0a; }
+  ::-webkit-scrollbar-thumb { background: #262626; border-radius: 999px; }
+</style>
+</head>
+<body class="bg-[#0a0a0a] text-white antialiased">
+
+  <!-- ============ HEADER ============ -->
+  <header class="sticky top-0 z-50 border-b border-white/10 bg-[#0a0a0a]/90 backdrop-blur">
+    <div class="mx-auto max-w-[1440px] px-4 sm:px-8 py-4 flex items-center justify-between gap-4">
+
+      <!-- Logo -->
+      <a href="#" class="flex items-center gap-2 shrink-0">
+        <span class="flex h-8 w-8 items-center justify-center rounded-xl bg-white text-black font-mono font-800 text-sm">
+          &gt;_
+        </span>
+        <span class="font-mono font-700 text-lg tracking-tight">
+          quiz<span class="text-white/40">://</span>
+        </span>
+      </a>
+
+      <!-- Command palette style search -->
+      <div class="hidden md:flex flex-1 max-w-md">
+        <div class="flex w-full items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-4 py-2 transition hover:border-white/20 hover:bg-white/10 cursor-text">
+          <svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="7"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <span class="font-mono text-sm flex-1 text-white/50">rust, closures, joins&hellip;</span>
+          <kbd class="hidden lg:inline-flex items-center gap-1 rounded-lg border border-white/10 bg-white/5 px-2 py-1 font-mono text-xs">
+            ⌘K
+          </kbd>
+        </div>
+      </div>
+
+      <!-- Nav -->
+      <nav class="flex items-center gap-4 sm:gap-8">
+        <a href="#tracks" class="hidden sm:inline-block font-mono text-sm hover:opacity-70 transition">tracks</a>
+        <a href="#curriculum" class="hidden sm:inline-block font-mono text-sm hover:opacity-70 transition">curriculum</a>
+        <a href="#" class="hidden sm:inline-block font-mono text-sm hover:opacity-70 transition">about</a>
+        <a href="#" class="inline-flex items-center rounded-xl border border-white/10 bg-white text-black font-mono text-sm font-600 px-4 py-2 transition hover:bg-white/90">
+          sign in
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ============ HERO ============ -->
+  <section class="relative overflow-hidden border-b border-white/10">
+    <div class="absolute inset-0 grid-fade pointer-events-none"></div>
+
+    <div class="relative mx-auto max-w-[1440px] px-4 sm:px-8 py-16 md:py-24">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+
+        <!-- Left: copy -->
+        <div>
+          <div class="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-4 py-2 mb-8">
+            <span class="h-2 w-2 rounded-full bg-[#00ff9d] pulse-dot"></span>
+            <span class="font-mono text-xs">9 tracks live &middot; 2,140+ questions &middot; updated weekly</span>
+          </div>
+
+          <h1 class="font-mono font-800 text-4xl sm:text-5xl lg:text-6xl leading-tight tracking-tight mb-8">
+            Master any language,<br />
+            one <span class="relative inline-block">
+              <span class="relative z-10">gotcha</span>
+              <span class="absolute inset-x-0 bottom-2 h-4 bg-white/10 -z-0"></span>
+            </span> at a time.
+          </h1>
+
+          <p class="text-lg text-white/70 mb-8 max-w-lg">
+            Every track runs foundations &rarr; intermediate &rarr; advanced &rarr; expert.
+            No toy snippets &mdash; ownership traps, type coercion surprises, off-by-ones,
+            and the production bugs that actually bite.
+          </p>
+
+          <div class="flex flex-wrap items-center gap-4">
+            <a href="#tracks" class="inline-flex items-center gap-2 rounded-xl bg-white text-black font-mono font-600 text-sm px-6 py-4 transition hover:bg-white/90">
+              Browse tracks
+              <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </a>
+            <a href="#curriculum" class="inline-flex items-center gap-2 rounded-xl border border-white/10 font-mono font-600 text-sm px-6 py-4 transition hover:border-white/30 hover:bg-white/5">
+              How it works
+            </a>
+          </div>
+
+          <!-- inline stat strip -->
+          <div class="mt-12 grid grid-cols-3 gap-6 max-w-md">
+            <div>
+              <p class="font-mono font-800 text-2xl">9</p>
+              <p class="font-mono text-xs text-white/60 mt-1">tracks</p>
+            </div>
+            <div>
+              <p class="font-mono font-800 text-2xl">96</p>
+              <p class="font-mono text-xs text-white/60 mt-1">topics</p>
+            </div>
+            <div>
+              <p class="font-mono font-800 text-2xl">2.1k</p>
+              <p class="font-mono text-xs text-white/60 mt-1">questions</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: curriculum roadmap card -->
+        <div id="curriculum" class="relative">
+          <div class="rounded-2xl border border-white/10 bg-[#111111] shadow-[0_0_60px_-15px_rgba(255,255,255,0.08)] overflow-hidden">
+            <!-- Title bar -->
+            <div class="flex items-center gap-2 border-b border-white/10 bg-white/5 px-4 py-4">
+              <span class="h-3 w-3 rounded-full bg-[#ff5f56]"></span>
+              <span class="h-3 w-3 rounded-full bg-[#ffbd2e]"></span>
+              <span class="h-3 w-3 rounded-full bg-[#27c93f]"></span>
+              <span class="ml-2 font-mono text-xs text-white/60">curriculum.map &mdash; python</span>
+            </div>
+            <!-- Body: roadmap steps -->
+            <div class="p-6 sm:p-8 space-y-5">
+
+              <div class="flex items-center gap-4">
+                <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-white text-black font-mono font-700 text-xs">01</span>
+                <div class="flex-1">
+                  <p class="font-mono font-600 text-sm">Foundations</p>
+                  <p class="font-mono text-xs text-white/50">syntax, types, control flow</p>
+                </div>
+                <svg class="h-4 w-4 text-white/70" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              </div>
+
+              <div class="flex items-center gap-4">
+                <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-white text-black font-mono font-700 text-xs">02</span>
+                <div class="flex-1">
+                  <p class="font-mono font-600 text-sm">Intermediate</p>
+                  <p class="font-mono text-xs text-white/50">collections, functions, errors</p>
+                </div>
+                <svg class="h-4 w-4 text-white/70" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              </div>
+
+              <div class="flex items-center gap-4">
+                <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-white/20 bg-white/5 font-mono font-700 text-xs">03</span>
+                <div class="flex-1">
+                  <p class="font-mono font-600 text-sm">Advanced</p>
+                  <p class="font-mono text-xs text-white/50">concurrency, generics, memory</p>
+                </div>
+                <span class="h-2 w-2 rounded-full bg-[#00ff9d] pulse-dot"></span>
+              </div>
+
+              <div class="flex items-center gap-4 opacity-40">
+                <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-white/20 bg-white/5 font-mono font-700 text-xs">04</span>
+                <div class="flex-1">
+                  <p class="font-mono font-600 text-sm">Expert</p>
+                  <p class="font-mono text-xs text-white/50">unsafe, macros, perf tuning</p>
+                </div>
+                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"></rect><path d="M8 11V7a4 4 0 0 1 8 0v4"></path></svg>
+              </div>
+
+              <div class="pt-4 border-t border-white/10 flex items-center gap-1 font-mono text-xs text-white/40">
+                <span>&gt;</span>
+                <span>resume python --at=advanced/12</span>
+                <span class="cursor-blink">&#9608;</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- floating stat chip -->
+          <div class="hidden sm:flex absolute -bottom-6 -left-6 items-center gap-4 rounded-2xl border border-white/10 bg-[#171717] px-6 py-4 shadow-[0_0_40px_-10px_rgba(255,255,255,0.15)]">
+            <div>
+              <p class="font-mono font-800 text-2xl">4</p>
+              <p class="font-mono text-xs text-white/60">phases per track</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CATEGORY GRID ============ -->
+  <main id="tracks" class="mx-auto max-w-[1440px] px-4 sm:px-8 py-16 md:py-24">
+
+    <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-8">
+      <div>
+        <p class="font-mono text-sm text-white/60 mb-2">## tracks</p>
+        <h2 class="font-mono font-700 text-2xl sm:text-3xl">Pick a language</h2>
+      </div>
+      <p class="font-mono text-sm text-white/60">9 tracks &middot; sorted by popularity</p>
+    </div>
+
+    <!-- filter pills -->
+    <div class="flex flex-wrap items-center gap-2 mb-10">
+      <span class="inline-flex items-center rounded-lg bg-white text-black font-mono text-xs font-600 px-3 py-1.5">all</span>
+      <span class="inline-flex items-center rounded-lg border border-white/10 text-white/60 font-mono text-xs px-3 py-1.5 hover:border-white/30 hover:text-white transition cursor-pointer">systems</span>
+      <span class="inline-flex items-center rounded-lg border border-white/10 text-white/60 font-mono text-xs px-3 py-1.5 hover:border-white/30 hover:text-white transition cursor-pointer">web</span>
+      <span class="inline-flex items-center rounded-lg border border-white/10 text-white/60 font-mono text-xs px-3 py-1.5 hover:border-white/30 hover:text-white transition cursor-pointer">scripting</span>
+      <span class="inline-flex items-center rounded-lg border border-white/10 text-white/60 font-mono text-xs px-3 py-1.5 hover:border-white/30 hover:text-white transition cursor-pointer">data</span>
+      <span class="inline-flex items-center rounded-lg border border-white/10 text-white/60 font-mono text-xs px-3 py-1.5 hover:border-white/30 hover:text-white transition cursor-pointer">infra</span>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+
+      <!-- Card: Rust -->
+      <a href="#" class="group relative rounded-2xl border border-white/10 bg-[#141414] p-6 flex flex-col gap-6 transition hover:border-white/30 hover:bg-white/5 hover:shadow-[0_0_40px_-12px_rgba(222,165,132,0.35)]">
+        <div class="flex items-start justify-between">
+          <span class="flex h-12 w-12 items-center justify-center rounded-xl border border-white/10 bg-white/5 font-mono font-700 text-lg">Rs</span>
+          <div class="flex items-center gap-2">
+            <span class="rounded-lg border border-white/10 px-2 py-1 font-mono text-[10px] text-white/50">advanced</span>
+            <svg class="h-5 w-5 text-white/40 transition group-hover:text-white group-hover:translate-x-1 group-hover:-translate-y-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="7" y1="17" x2="17" y2="7"></line>
+              <polyline points="7 7 17 7 17 17"></polyline>
+            </svg>
+          </div>
+        </div>
+        <div>
+          <h3 class="font-mono font-700 text-xl mb-2">rust</h3>
+          <p class="text-sm text-white/70">Zero to hero systems programming &mdash; ownership, borrowing, lifetimes, and beyond.</p>
+        </div>
+        <div class="flex items-center justify-between pt-6 border-t border-white/10">
+          <div class="flex items-center gap-2">
+            <span class="h-3 w-3 rounded-full" style="background-color:#dea584"></span>
+            <span class="font-mono text-xs text-white/60">15 topics</span>
+          </div>
+          <span class="font-mono text-xs text-white/60">340 questions</span>
+        </div>
+        <div class="flex items-center gap-1.5">
+          <span class="h-1.5 flex-1 rounded-full bg-white"></span>
+          <span class="h-1.5 flex-1 rounded-full bg-white"></span>
+          <span class="h-1.5 flex-1 rounded-full bg-white"></span>
+          <span class="h-1.5 flex-1 rounded-full bg-white/15"></span>
+        </div>
+      </a>
+
+      <!-- Card: Python -->
+      <a href="#" class="group relative rounded-2xl border border-white/10 bg-[#141414] p-6 flex flex-col gap-6 transition hover:border-white/30 hover:bg-white/5 hover:shadow-[0_0_40px_-12px_rgba(53,114,165,0.35)]">
+        <div class="flex items-start justify-between">
+          <span class="flex h-12 w-12 items-center justify-center rounded-xl border border-white/10 bg-white/5 font-mono font-700 text-lg">Py</span>
+          <div class="flex items-center gap-2">
+            <span class="rounded-lg border border-white/10 px-2 py-1 font-mono text-[10px] text-white/50">all levels</span>
+            <svg class="h-5 w-5 text-white/40 transition group-hover:text-white group-hover:translate-x-1 group-hover:-translate-y-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="7" y1="17" x2="17" y2="7"></line>
+              <polyline points="7 7 17 7 17 17"></polyline>
+            </svg>
+          </div>
+        </div>
+        <div>
+          <h3 class="font-mono font-700 text-xl mb-2">python</h3>
+          <p class="text-sm text-white/70">From syntax basics to async, decorators, metaclasses, and the GIL.</p>
+        </div>
+        <div class="flex items-center justify-between pt-6 border-t border-white/10">
+          <div class="flex items-center gap-2">
+            <span class="h-3 w-3 rounded-full" style="background-color:#3572A5"></span>
+            <span class="font-mono text-xs text-white/60">18 topics</span>
+          </div>
+          <span class="font-mono text-xs text-white/60">410 questions</span>
+        </div>
+        <div class="flex items-center gap-1.5">
+          <span class="h-1.5 flex-1 rounded-full bg-white"></span>
+          <span class="h-1.5 flex-1 rounded-full bg-white"></span>
+          <span class="h-1.5 flex-1 rounded-full bg-white"></span>
+          <span class="h-1.5 flex-1 rounded-full bg-white"></span>
+        </div>
+      </a>
+
+      <!-- Card: JavaScript -->
+      <a href="#" class="group relative rounded-2xl border border-white/10 bg-[#141414] p-6 flex flex-col gap-6 transition hover:border-white/30 hover:bg-white/5 hover:shadow-[0_0_40px_-12px_rgba(241,224,90,0.35)]">
+        <div class="flex items-start justify-between">
+          <span class="flex h-12 w-12 items-center justify-center rounded-xl border border-white/10 bg-white/5 font-mono font-700 text-lg">Js</span>
+          <div class="flex items-center gap-2">
+            <span class="rounded-lg border border-white/10 px-2 py-1 font-mono text-[10px] text-white/50">all levels</span>
+            <svg class="h-5 w-5 text-white/40 transition group-hover:text-white group-hover:translate-x-1 group-hover:-translate-y-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="7" y1="17" x2="17" y2="7"></line>
+              <polyline points="7 7 17 7 17 17"></polyline>
+            </svg>
+          </div>
+        </div>
+        <div>
+          <h3 class="font-mono font-700 text-xl mb-2">javascript</h3>
+          <p class="text-sm text-white/70">Closures, prototypes, the event loop, and modern ES features.</p>
+        </div>
+        <div class="flex items-center justify-between pt-6 border-t border-white/10">
+          <div class="flex items-center gap-2">
+            <span class="h-3 w-3 rounded-full" style="background-color:#f1e05a"></span>
+            <span class="font-mono text-xs text-white/60">28 topics</span>
+          </div>
+          <span class="font-mono text-xs text-white/60">520 questions</span>
+        </div>
+        <div class="flex items-center gap-1.5">
+          <span class="h-1.5 flex-1 rounded-full bg-white"></span>
+          <span class="h-1.5 flex-1 rounded-full bg-white"></span>
+          <span class="h-1.5 flex-1 rounded-full bg-white"></span>
+          <span class="h-1.5 flex-1 rounded-full bg-white"></span>
+        </div>
+      </a>
+
+      <!-- Card: TypeScript -->
+      <a href="#" class="group relative rounded-2xl border border-white/10 bg-[#141414] p-6 flex flex-col gap-6 transition hover:border-white/30 hover:bg-white/5 hover:shadow-[0_0_40px_-12px_rgba(49,120,198,0.35)]">
+        <div class="flex items-start justify-between">
+          <span class="flex h-12 w-12 items-center justify-center rounded-xl border border-white/10 bg-white/5 font-mono font-700 text-lg">Ts</span>
+          <div class="flex items-center gap-2">
+            <span class="rounded-lg border border-white/10 px-2 py-1 font-mono text-[10px] text-white/50">intermediate</span>
+            <svg class="h-5 w-5 text-white/40 transition group-hover:text-white group-hover:translate-x-1 group-hover:-translate-y-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="7" y1="17" x2="17" y2="7"></line>
+              <polyline points="7 7 17 7 17 17"></polyline>
+            </svg>
+          </div>
+        </div>
+        <div>
+          <h3 class="font-mono font-700 text-xl mb-2">typescript</h3>
+          <p class="text-sm text-white/70">Types, generics, inference, and advanced type-level gymnastics.</p>
+        </div>
+        <div class="flex items-center justify-between pt-6 border-t border-white/10">
+          <div class="flex items-center gap-2">
+            <span class="h-3 w-3 rounded-full" style="background-color:#3178c6"></span>
+            <span class="font-mono text-xs text-white/60">10 topics</span>
+          </div>
+          <span class="font-mono text-xs text-white/60">260 questions</span>
+        </div>
+        <div class="flex items-center gap-1.5">
+          <span class="h-1.5 flex-1 rounded-full bg-white"></span>
+          <span class="h-1.5 flex-1 rounded-full bg-white"></span>
+          <span class="h-1.5 flex-1 rounded-full bg-white/15"></span>
+          <span class="h-1.5 flex-1 rounded-full bg-white/15"></span>
+        </div>
+      </a>
+
+      <!-- Card: SQL -->
+      <a href="#" class="group relative rounded-2xl border border-white/10 bg-[#141414] p-6 flex flex-col gap-6 transition hover:border-white/30 hover:bg-white/5 hover:shadow-[0_0_40px_-12px_rgba(255,202,40,0.35)]">
+        <div class="flex items-start justify-between">
+          <span class="flex h-12 w-12 items-center justify-center rounded-xl border border-white/10 bg-white/5 font-mono font-700 text-lg">Sq</span>
+          <div class="flex items-center gap-2">
+            <span class="rounded-lg border border-white/10 px-2 py-1 font-mono text-[10px] text-white/50">beginner</span>
+            <svg class="h-5 w-5 text-white/40 transition group-hover:text-white group-hover:translate-x-1 group-hover:-translate-y-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="7" y1="17" x2="17" y2="7"></line>
+              <polyline points="7 7 17 7 17 17"></polyline>
+            </svg>
+          </div>
+        </div>
+        <div>
+          <h3 class="font-mono font-700 text-xl mb-2">sql</h3>
+          <p class="text-sm text-white/70">Joins, indexes, query planning, and transaction isolation levels.</p>
+        </div>
+        <div class="flex items-center justify-between pt-6 border-t border-white/10">
+          <div class="flex items-center gap-2">
+            <span class="h-3 w-3 rounded-full" style="background-color:#ffca28"></span>
+            <span class="font-mono text-xs text-white/60">8 topics</span>
+          </div>
+          <span class="font-mono text-xs text-white/60">190 questions</span>
+        </div>
+        <div class="flex items-center gap-1.5">
+          <span class="h-1.5 flex-1 rounded-full bg-white"></span>
+          <span class="h-1.5 flex-1 rounded-full bg-white/15"></span>
+          <span class="h-1.5 flex-1 rounded-full bg-white/15"></span>
+          <span class="h-1.5 flex-1 rounded-full bg-white/15"></span>
+        </div>
+      </a>
+
+      <!-- Card: Bash -->
+      <a href="#" class="group relative rounded-2xl border border-white/10 bg-[#141414] p-6 flex flex-col gap-6 transition hover:border-white/30 hover:bg-white/5 hover:shadow-[0_0_40px_-12px_rgba(137,224,81,0.35)]">
+        <div class="flex items-start justify-between">
+          <span class="flex h-12 w-12 items-center justify-center rounded-xl border border-white/10 bg-white/5 font-mono font-700 text-lg">$_</span>
+          <div class="flex items-center gap-2">
+            <span class="rounded-lg border border-white/10 px-2 py-1 font-mono text-[10px] text-white/50">beginner</span>
+            <svg class="h-5 w-5 text-white/40 transition group-hover:text-white group-hover:translate-x-1 group-hover:-translate-y-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="7" y1="17" x2="17" y2="7"></line>
+              <polyline points="7 7 17 7 17 17"></polyline>
+            </svg>
+          </div>
+        </div>
+        <div>
+          <h3 class="font-mono font-700 text-xl mb-2">bash</h3>
+          <p class="text-sm text-white/70">Shell scripting, pipes, subshells, and POSIX quoting gotchas.</p>
+        </div>
+        <div class="flex items-center justify-between pt-6 border-t border-white/10">
+          <div class="flex items-center gap-2">
+            <span class="h-3 w-3 rounded-full" style="background-color:#89e051"></span>
+            <span class="font-mono text-xs text-white/60">7 topics</span>
+          </div>
+          <span class="font-mono text-xs text-white/60">150 questions</span>
+        </div>
+        <div class="flex items-center gap-1.5">
+          <span class="h-1.5 flex-1 rounded-full bg-white"></span>
+          <span class="h-1.5 flex-1 rounded-full bg-white/15"></span>
+          <span class="h-1.5 flex-1 rounded-full bg-white/15"></span>
+          <span class="h-1.5 flex-1 rounded-full bg-white/15"></span>
+        </div>
+      </a>
+
+      <!-- Card: Go -->
+      <a href="#" class="group relative rounded-2xl border border-white/10 bg-[#141414] p-6 flex flex-col gap-6 transition hover:border-white/30 hover:bg-white/5 hover:shadow-[0_0_40px_-12px_rgba(0,173,216,0.35)]">
+        <div class="flex items-start justify-between">
+          <span class="flex h-12 w-12 items-center justify-center rounded-xl border border-white/10 bg-white/5 font-mono font-700 text-lg">Go</span>
+          <div class="flex items-center gap-2">
+            <span class="rounded-lg border border-white/10 px-2 py-1 font-mono text-[10px] text-white/50">intermediate</span>
+            <svg class="h-5 w-5 text-white/40 transition group-hover:text-white group-hover:translate-x-1 group-hover:-translate-y-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="7" y1="17" x2="17" y2="7"></line>
+              <polyline points="7 7 17 7 17 17"></polyline>
+            </svg>
+          </div>
+        </div>
+        <div>
+          <h3 class="font-mono font-700 text-xl mb-2">go</h3>
+          <p class="text-sm text-white/70">Goroutines, channels, interfaces, and the Go runtime scheduler.</p>
+        </div>
+        <div class="flex items-center justify-between pt-6 border-t border-white/10">
+          <div class="flex items-center gap-2">
+            <span class="h-3 w-3 rounded-full" style="background-color:#00add8"></span>
+            <span class="font-mono text-xs text-white/60">9 topics</span>
+          </div>
+          <span class="font-mono text-xs text-white/60">220 questions</span>
+        </div>
+        <div class="flex items-center gap-1.5">
+          <span class="h-1.5 flex-1 rounded-full bg-white"></span>
+          <span class="h-1.5 flex-1 rounded-full bg-white"></span>
+          <span class="h-1.5 flex-1 rounded-full bg-white/15"></span>
+          <span class="h-1.5 flex-1 rounded-full bg-white/15"></span>
+        </div>
+      </a>
+
+      <!-- Card: Docker -->
+      <a href="#" class="group relative rounded-2xl border border-white/10 bg-[#141414] p-6 flex flex-col gap-6 transition hover:border-white/30 hover:bg-white/5 hover:shadow-[0_0_40px_-12px_rgba(13,183,237,0.35)]">
+        <div class="flex items-start justify-between">
+          <span class="flex h-12 w-12 items-center justify-center rounded-xl border border-white/10 bg-white/5 font-mono font-700 text-lg">Dk</span>
+          <div class="flex items-center gap-2">
+            <span class="rounded-lg border border-white/10 px-2 py-1 font-mono text-[10px] text-white/50">beginner</span>
+            <svg class="h-5 w-5 text-white/40 transition group-hover:text-white group-hover:translate-x-1 group-hover:-translate-y-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="7" y1="17" x2="17" y2="7"></line>
+              <polyline points="7 7 17 7 17 17"></polyline>
+            </svg>
+          </div>
+        </div>
+        <div>
+          <h3 class="font-mono font-700 text-xl mb-2">docker</h3>
+          <p class="text-sm text-white/70">Images, layers, networking, and container runtime internals.</p>
+        </div>
+        <div class="flex items-center justify-between pt-6 border-t border-white/10">
+          <div class="flex items-center gap-2">
+            <span class="h-3 w-3 rounded-full" style="background-color:#0db7ed"></span>
+            <span class="font-mono text-xs text-white/60">6 topics</span>
+          </div>
+          <span class="font-mono text-xs text-white/60">130 questions</span>
+        </div>
+        <div class="flex items-center gap-1.5">
+          <span class="h-1.5 flex-1 rounded-full bg-white"></span>
+          <span class="h-1.5 flex-1 rounded-full bg-white/15"></span>
+          <span class="h-1.5 flex-1 rounded-full bg-white/15"></span>
+          <span class="h-1.5 flex-1 rounded-full bg-white/15"></span>
+        </div>
+      </a>
+
+      <!-- Card: Lua -->
+      <a href="#" class="group relative rounded-2xl border border-white/10 bg-[#141414] p-6 flex flex-col gap-6 transition hover:border-white/30 hover:bg-white/5 hover:shadow-[0_0_40px_-12px_rgba(0,0,128,0.45)]">
+        <div class="flex items-start justify-between">
+          <span class="flex h-12 w-12 items-center justify-center rounded-xl border border-white/10 bg-white/5 font-mono font-700 text-lg">Lu</span>
+          <div class="flex items-center gap-2">
+            <span class="rounded-lg border border-white/10 px-2 py-1 font-mono text-[10px] text-white/50">new</span>
+            <svg class="h-5 w-5 text-white/40 transition group-hover:text-white group-hover:translate-x-1 group-hover:-translate-y-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="7" y1="17" x2="17" y2="7"></line>
+              <polyline points="7 7 17 7 17 17"></polyline>
+            </svg>
+          </div>
+        </div>
+        <div>
+          <h3 class="font-mono font-700 text-xl mb-2">lua</h3>
+          <p class="text-sm text-white/70">Tables, metatables, coroutines, and embedding gotchas &mdash; freshly added.</p>
+        </div>
+        <div class="flex items-center justify-between pt-6 border-t border-white/10">
+          <div class="flex items-center gap-2">
+            <span class="h-3 w-3 rounded-full" style="background-color:#000080"></span>
+            <span class="font-mono text-xs text-white/60">2 topics</span>
+          </div>
+          <span class="font-mono text-xs text-white/60">30 questions</span>
+        </div>
+        <div class="flex items-center gap-1.5">
+          <span class="h-1.5 flex-1 rounded-full bg-white"></span>
+          <span class="h-1.5 flex-1 rounded-full bg-white/15"></span>
+          <span class="h-1.5 flex-1 rounded-full bg-white/15"></span>
+          <span class="h-1.5 flex-1 rounded-full bg-white/15"></span>
+        </div>
+      </a>
+
+      <!-- Card: Request a track (CTA) -->
+      <a href="#" class="group relative rounded-2xl border border-dashed border-white/15 bg-transparent p-6 flex flex-col items-center justify-center gap-3 text-center transition hover:border-white/30 hover:bg-white/5 min-h-[220px]">
+        <span class="flex h-12 w-12 items-center justify-center rounded-xl border border-white/10 bg-white/5 font-mono font-700 text-lg group-hover:rotate-90 transition">+</span>
+        <p class="font-mono font-600 text-sm">Request a track</p>
+        <p class="text-xs text-white/50 max-w-[18ch]">Kotlin, Swift, C++, Zig &mdash; tell us what to build next.</p>
+      </a>
+
+    </div>
+  </main>
+
+  <!-- ============ WHY THIS FORMAT ============ -->
+  <section class="border-t border-white/10 relative overflow-hidden">
+    <div class="absolute inset-0 dotted-fade pointer-events-none"></div>
+    <div class="relative mx-auto max-w-[1440px] px-4 sm:px-8 py-16 md:py-20">
+      <p class="font-mono text-sm text-white/60 mb-2">## why quiz://</p>
+      <h2 class="font-mono font-700 text-2xl sm:text-3xl mb-10">Built for gotchas, not trivia</h2>
+
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+        <div class="rounded-2xl border border-white/10 bg-[#141414] p-6">
+          <span class="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/5 mb-4">
+            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"></path></svg>
+          </span>
+          <h3 class="font-mono font-600 text-sm mb-2">Production-grade scenarios</h3>
+          <p class="text-sm text-white/60">Every question is drawn from real bugs, not toy snippets &mdash; the kind that survive code review and bite in prod.</p>
+        </div>
+        <div class="rounded-2xl border border-white/10 bg-[#141414] p-6">
+          <span class="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/5 mb-4">
+            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"></path></svg>
+          </span>
+          <h3 class="font-mono font-600 text-sm mb-2">Progressive difficulty</h3>
+          <p class="text-sm text-white/60">Basic recall &rarr; edge cases &rarr; best-practice judgment calls, ordered so every quiz builds on the last.</p>
+        </div>
+        <div class="rounded-2xl border border-white/10 bg-[#141414] p-6">
+          <span class="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/5 mb-4">
+            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"></rect><path d="M8 12l3 3 5-6"></path></svg>
+          </span>
+          <h3 class="font-mono font-600 text-sm mb-2">Explanations that teach</h3>
+          <p class="text-sm text-white/60">Collapsed answers explain the mechanism &mdash; evaluation order, coercion rules, borrow rules &mdash; not just the label.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="border-t border-white/10">
+    <div class="mx-auto max-w-[1440px] px-4 sm:px-8 py-12">
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-8 mb-10">
+        <div class="col-span-2 sm:col-span-1">
+          <div class="flex items-center gap-2 mb-4">
+            <span class="flex h-8 w-8 items-center justify-center rounded-xl bg-white text-black font-mono font-800 text-sm">&gt;_</span>
+            <span class="font-mono font-700 text-sm">quiz<span class="text-white/40">://</span></span>
+          </div>
+          <p class="text-sm text-white/50 max-w-[26ch]">Zero-to-hero quiz tracks for the languages you actually ship.</p>
+        </div>
+        <div>
+          <p class="font-mono text-xs text-white/40 mb-3">product</p>
+          <div class="flex flex-col gap-2">
+            <a href="#tracks" class="font-mono text-xs text-white/60 hover:text-white transition">tracks</a>
+            <a href="#curriculum" class="font-mono text-xs text-white/60 hover:text-white transition">curriculum</a>
+            <a href="#" class="font-mono text-xs text-white/60 hover:text-white transition">changelog</a>
+          </div>
+        </div>
+        <div>
+          <p class="font-mono text-xs text-white/40 mb-3">resources</p>
+          <div class="flex flex-col gap-2">
+            <a href="#" class="font-mono text-xs text-white/60 hover:text-white transition">docs</a>
+            <a href="#" class="font-mono text-xs text-white/60 hover:text-white transition">github</a>
+            <a href="#" class="font-mono text-xs text-white/60 hover:text-white transition">status</a>
+          </div>
+        </div>
+        <div>
+          <p class="font-mono text-xs text-white/40 mb-3">community</p>
+          <div class="flex flex-col gap-2">
+            <a href="#" class="font-mono text-xs text-white/60 hover:text-white transition">discussions</a>
+            <a href="#" class="font-mono text-xs text-white/60 hover:text-white transition">contribute</a>
+            <a href="#" class="font-mono text-xs text-white/60 hover:text-white transition">about</a>
+          </div>
+        </div>
+      </div>
+      <div class="pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <span class="font-mono text-xs text-white/40">&copy; 2026 quiz:// &mdash; all rights reserved</span>
+        <span class="font-mono text-xs text-white/40">built for people who read the explanation, not just the answer</span>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

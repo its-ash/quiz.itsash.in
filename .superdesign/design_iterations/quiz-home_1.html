@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Quizly — Zero to Hero Quizzes</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  html { scroll-behavior: smooth; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Helvetica, Arial, sans-serif; }
+</style>
+</head>
+<body class="bg-white text-black">
+
+  <!-- Header / Nav -->
+  <header class="sticky top-0 z-40 bg-white/90 backdrop-blur border-b border-black">
+    <div class="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-16">
+      <div class="h-16 sm:h-16 flex items-center justify-between gap-4">
+
+        <!-- Logo -->
+        <a href="#" class="flex items-center gap-2 shrink-0">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" class="shrink-0">
+            <rect x="1" y="1" width="30" height="30" rx="8" stroke="black" stroke-width="1.5"/>
+            <path d="M11 21V11L16 16L21 11V21" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span class="text-black font-bold text-lg tracking-tight">Quizly</span>
+        </a>
+
+        <!-- Search (decorative) -->
+        <div class="hidden md:flex flex-1 max-w-[400px] mx-8">
+          <div class="w-full flex items-center gap-2 border border-black rounded-xl px-4 py-2">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" class="shrink-0">
+              <circle cx="11" cy="11" r="7" stroke="black" stroke-width="1.5"/>
+              <path d="M21 21L16.65 16.65" stroke="black" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+            <span class="text-black text-sm opacity-100">Search categories, topics...</span>
+          </div>
+        </div>
+
+        <!-- Right actions -->
+        <div class="flex items-center gap-2 sm:gap-4 shrink-0">
+          <button class="hidden sm:flex items-center justify-center w-10 h-10 border border-black rounded-xl hover:bg-black hover:text-white transition-colors duration-200" aria-label="Toggle theme">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+              <path d="M12 3V4M12 20V21M4 12H3M6.31 6.31L5.6 5.6M17.69 6.31L18.4 5.6M6.31 17.69L5.6 18.4M17.69 17.69L18.4 18.4M21 12H20M16 12C16 14.2091 14.2091 16 12 16C9.79086 16 8 14.2091 8 12C8 9.79086 9.79086 8 12 8C14.2091 8 16 9.79086 16 12Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </button>
+          <button class="px-4 py-2 sm:px-6 sm:py-2 bg-black text-white text-sm font-semibold rounded-xl hover:opacity-80 transition-opacity duration-200">
+            Sign in
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-16 pt-16 pb-16 sm:pt-24 sm:pb-24">
+    <div class="max-w-[720px]">
+      <div class="inline-flex items-center gap-2 border border-black rounded-full px-4 py-2 mb-8">
+        <span class="w-2 h-2 rounded-full bg-black"></span>
+        <span class="text-black text-xs font-semibold tracking-wide uppercase">8 tracks &middot; 240+ questions</span>
+      </div>
+      <h1 class="text-black text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1] mb-8">
+        Go from zero to hero,<br class="hidden sm:block" /> one quiz at a time.
+      </h1>
+      <p class="text-black text-base sm:text-lg leading-relaxed mb-8 max-w-[560px]">
+        Structured, self-contained quiz tracks for the languages and tools engineers actually use in production — pick a category below to see every topic inside it.
+      </p>
+      <div class="flex flex-wrap items-center gap-4">
+        <button class="px-8 py-4 bg-black text-white text-sm font-semibold rounded-xl hover:opacity-80 transition-opacity duration-200">
+          Browse all categories
+        </button>
+        <button class="px-8 py-4 border border-black text-black text-sm font-semibold rounded-xl hover:bg-black hover:text-white transition-colors duration-200">
+          How it works
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Divider -->
+  <div class="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-16">
+    <div class="border-t border-black"></div>
+  </div>
+
+  <!-- Category grid -->
+  <section class="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-16 pt-16 pb-16 sm:pt-24 sm:pb-24">
+    <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-16">
+      <div>
+        <h2 class="text-black text-2xl sm:text-3xl font-bold tracking-tight mb-2">Categories</h2>
+        <p class="text-black text-sm sm:text-base">Choose a language or tool to see its full topic list.</p>
+      </div>
+      <a href="#" class="text-black text-sm font-semibold underline decoration-1 underline-offset-4 hover:opacity-60 transition-opacity duration-200 shrink-0">
+        View all &rarr;
+      </a>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+
+      <!-- Card: Rust -->
+      <a href="#" class="group flex flex-col justify-between border border-black rounded-2xl p-8 transition-all duration-200 hover:-translate-y-1 hover:shadow-[6px_6px_0_0_#000]">
+        <div>
+          <div class="flex items-center justify-between mb-8">
+            <div class="w-12 h-12 rounded-xl bg-black flex items-center justify-center shrink-0">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                <circle cx="12" cy="12" r="8" stroke="white" stroke-width="1.5"/>
+                <circle cx="12" cy="12" r="2.5" fill="white"/>
+                <path d="M12 4V6.5M12 17.5V20M20 12H17.5M6.5 12H4" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <span class="text-xs font-semibold border border-black rounded-full px-3 py-1">Systems</span>
+          </div>
+          <h3 class="text-black text-xl font-bold tracking-tight mb-2">Rust</h3>
+          <p class="text-black text-sm leading-relaxed mb-8">
+            Ownership, borrowing, lifetimes, async, unsafe, and the tooling that makes Rust production-ready.
+          </p>
+        </div>
+        <div class="flex items-center justify-between pt-8 border-t border-black">
+          <span class="text-black text-sm font-semibold">14 topics &middot; 96 questions</span>
+          <span class="w-8 h-8 rounded-full border border-black flex items-center justify-center shrink-0 group-hover:bg-black group-hover:text-white transition-colors duration-200">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </div>
+      </a>
+
+      <!-- Card: Python -->
+      <a href="#" class="group flex flex-col justify-between border border-black rounded-2xl p-8 transition-all duration-200 hover:-translate-y-1 hover:shadow-[6px_6px_0_0_#000]">
+        <div>
+          <div class="flex items-center justify-between mb-8">
+            <div class="w-12 h-12 rounded-xl bg-black flex items-center justify-center shrink-0">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                <path d="M12 3C9.5 3 8 4 8 6V8H12V9H6C4.5 9 3 10.5 3 12.5C3 14.5 4.5 15.5 6 15.5H7.5V13.5C7.5 11.5 9 10.5 11 10.5H16C17.5 10.5 18.5 9.5 18.5 8V6C18.5 4 16.5 3 14 3H12Z" fill="white"/>
+                <path d="M12 21C14.5 21 16 20 16 18V16H12V15H18C19.5 15 21 13.5 21 11.5C21 9.5 19.5 8.5 18 8.5H16.5V10.5C16.5 12.5 15 13.5 13 13.5H8C6.5 13.5 5.5 14.5 5.5 16V18C5.5 20 7.5 21 10 21H12Z" fill="white" opacity="0.6"/>
+              </svg>
+            </div>
+            <span class="text-xs font-semibold border border-black rounded-full px-3 py-1">Scripting</span>
+          </div>
+          <h3 class="text-black text-xl font-bold tracking-tight mb-2">Python</h3>
+          <p class="text-black text-sm leading-relaxed mb-8">
+            From syntax basics to decorators, generators, typing, and packaging for real projects.
+          </p>
+        </div>
+        <div class="flex items-center justify-between pt-8 border-t border-black">
+          <span class="text-black text-sm font-semibold">16 topics &middot; 128 questions</span>
+          <span class="w-8 h-8 rounded-full border border-black flex items-center justify-center shrink-0 group-hover:bg-black group-hover:text-white transition-colors duration-200">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </div>
+      </a>
+
+      <!-- Card: JavaScript -->
+      <a href="#" class="group flex flex-col justify-between border border-black rounded-2xl p-8 transition-all duration-200 hover:-translate-y-1 hover:shadow-[6px_6px_0_0_#000]">
+        <div>
+          <div class="flex items-center justify-between mb-8">
+            <div class="w-12 h-12 rounded-xl bg-black flex items-center justify-center shrink-0">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                <path d="M8 16C8 17.5 9 18.5 10.5 18.5C12 18.5 12.5 17.5 12.5 16V9" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+                <path d="M15 15.5C15 17 16 18.5 18 18.5C20 18.5 20.5 17.5 20.5 16.5C20.5 15 19 14.5 18 14C17 13.5 15.5 13 15.5 11.5C15.5 10.5 16 9.5 18 9.5C19.5 9.5 20 10.5 20 11" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <span class="text-xs font-semibold border border-black rounded-full px-3 py-1">Web</span>
+          </div>
+          <h3 class="text-black text-xl font-bold tracking-tight mb-2">JavaScript</h3>
+          <p class="text-black text-sm leading-relaxed mb-8">
+            Closures, prototypes, the event loop, coercion gotchas, and modern ES features.
+          </p>
+        </div>
+        <div class="flex items-center justify-between pt-8 border-t border-black">
+          <span class="text-black text-sm font-semibold">18 topics &middot; 144 questions</span>
+          <span class="w-8 h-8 rounded-full border border-black flex items-center justify-center shrink-0 group-hover:bg-black group-hover:text-white transition-colors duration-200">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </div>
+      </a>
+
+      <!-- Card: TypeScript -->
+      <a href="#" class="group flex flex-col justify-between border border-black rounded-2xl p-8 transition-all duration-200 hover:-translate-y-1 hover:shadow-[6px_6px_0_0_#000]">
+        <div>
+          <div class="flex items-center justify-between mb-8">
+            <div class="w-12 h-12 rounded-xl bg-black flex items-center justify-center shrink-0">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                <path d="M5 9H11" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+                <path d="M8 9V18" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+                <path d="M14 18C14 18 14.5 18.5 15.5 18.5C16.5 18.5 17 18 17 17.2C17 15.5 14 15.8 14 14C14 13.2 14.5 12.5 15.5 12.5C16.5 12.5 17 13 17 13" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <span class="text-xs font-semibold border border-black rounded-full px-3 py-1">Web</span>
+          </div>
+          <h3 class="text-black text-xl font-bold tracking-tight mb-2">TypeScript</h3>
+          <p class="text-black text-sm leading-relaxed mb-8">
+            Structural typing, generics, narrowing, utility types, and strictness pitfalls.
+          </p>
+        </div>
+        <div class="flex items-center justify-between pt-8 border-t border-black">
+          <span class="text-black text-sm font-semibold">12 topics &middot; 84 questions</span>
+          <span class="w-8 h-8 rounded-full border border-black flex items-center justify-center shrink-0 group-hover:bg-black group-hover:text-white transition-colors duration-200">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </div>
+      </a>
+
+      <!-- Card: SQL -->
+      <a href="#" class="group flex flex-col justify-between border border-black rounded-2xl p-8 transition-all duration-200 hover:-translate-y-1 hover:shadow-[6px_6px_0_0_#000]">
+        <div>
+          <div class="flex items-center justify-between mb-8">
+            <div class="w-12 h-12 rounded-xl bg-black flex items-center justify-center shrink-0">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                <ellipse cx="12" cy="6" rx="7" ry="2.5" stroke="white" stroke-width="1.5"/>
+                <path d="M5 6V18C5 19.4 8.1 20.5 12 20.5C15.9 20.5 19 19.4 19 18V6" stroke="white" stroke-width="1.5"/>
+                <path d="M5 12C5 13.4 8.1 14.5 12 14.5C15.9 14.5 19 13.4 19 12" stroke="white" stroke-width="1.5"/>
+              </svg>
+            </div>
+            <span class="text-xs font-semibold border border-black rounded-full px-3 py-1">Data</span>
+          </div>
+          <h3 class="text-black text-xl font-bold tracking-tight mb-2">SQL</h3>
+          <p class="text-black text-sm leading-relaxed mb-8">
+            Joins, indexing, transactions, window functions, and query-plan performance traps.
+          </p>
+        </div>
+        <div class="flex items-center justify-between pt-8 border-t border-black">
+          <span class="text-black text-sm font-semibold">10 topics &middot; 72 questions</span>
+          <span class="w-8 h-8 rounded-full border border-black flex items-center justify-center shrink-0 group-hover:bg-black group-hover:text-white transition-colors duration-200">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </div>
+      </a>
+
+      <!-- Card: Bash -->
+      <a href="#" class="group flex flex-col justify-between border border-black rounded-2xl p-8 transition-all duration-200 hover:-translate-y-1 hover:shadow-[6px_6px_0_0_#000]">
+        <div>
+          <div class="flex items-center justify-between mb-8">
+            <div class="w-12 h-12 rounded-xl bg-black flex items-center justify-center shrink-0">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                <path d="M6 8L10 12L6 16" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M13 16H18" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <span class="text-xs font-semibold border border-black rounded-full px-3 py-1">Shell</span>
+          </div>
+          <h3 class="text-black text-xl font-bold tracking-tight mb-2">Bash</h3>
+          <p class="text-black text-sm leading-relaxed mb-8">
+            Pipes, redirection, quoting rules, process substitution, and scripting best practices.
+          </p>
+        </div>
+        <div class="flex items-center justify-between pt-8 border-t border-black">
+          <span class="text-black text-sm font-semibold">9 topics &middot; 58 questions</span>
+          <span class="w-8 h-8 rounded-full border border-black flex items-center justify-center shrink-0 group-hover:bg-black group-hover:text-white transition-colors duration-200">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </div>
+      </a>
+
+      <!-- Card: Go -->
+      <a href="#" class="group flex flex-col justify-between border border-black rounded-2xl p-8 transition-all duration-200 hover:-translate-y-1 hover:shadow-[6px_6px_0_0_#000]">
+        <div>
+          <div class="flex items-center justify-between mb-8">
+            <div class="w-12 h-12 rounded-xl bg-black flex items-center justify-center shrink-0">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                <ellipse cx="9" cy="12" rx="5" ry="5" stroke="white" stroke-width="1.5"/>
+                <path d="M17 8.5C18.5 8.5 19.5 9.8 19.5 11.5C19.5 13.2 18.5 14.5 17 14.5" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+                <circle cx="7.5" cy="11" r="0.8" fill="black"/>
+              </svg>
+            </div>
+            <span class="text-xs font-semibold border border-black rounded-full px-3 py-1">Backend</span>
+          </div>
+          <h3 class="text-black text-xl font-bold tracking-tight mb-2">Go</h3>
+          <p class="text-black text-sm leading-relaxed mb-8">
+            Goroutines, channels, interfaces, error handling idioms, and module tooling.
+          </p>
+        </div>
+        <div class="flex items-center justify-between pt-8 border-t border-black">
+          <span class="text-black text-sm font-semibold">11 topics &middot; 76 questions</span>
+          <span class="w-8 h-8 rounded-full border border-black flex items-center justify-center shrink-0 group-hover:bg-black group-hover:text-white transition-colors duration-200">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </div>
+      </a>
+
+      <!-- Card: Docker -->
+      <a href="#" class="group flex flex-col justify-between border border-black rounded-2xl p-8 transition-all duration-200 hover:-translate-y-1 hover:shadow-[6px_6px_0_0_#000]">
+        <div>
+          <div class="flex items-center justify-between mb-8">
+            <div class="w-12 h-12 rounded-xl bg-black flex items-center justify-center shrink-0">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                <rect x="4" y="10" width="4" height="4" stroke="white" stroke-width="1.3"/>
+                <rect x="9" y="10" width="4" height="4" stroke="white" stroke-width="1.3"/>
+                <rect x="9" y="5" width="4" height="4" stroke="white" stroke-width="1.3"/>
+                <rect x="14" y="10" width="4" height="4" stroke="white" stroke-width="1.3"/>
+                <path d="M3 14C3 14 3.5 18 8 18H16C19 18 20.5 16 21 14" stroke="white" stroke-width="1.3" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <span class="text-xs font-semibold border border-black rounded-full px-3 py-1">DevOps</span>
+          </div>
+          <h3 class="text-black text-xl font-bold tracking-tight mb-2">Docker</h3>
+          <p class="text-black text-sm leading-relaxed mb-8">
+            Images vs containers, layer caching, volumes, networking, and multi-stage builds.
+          </p>
+        </div>
+        <div class="flex items-center justify-between pt-8 border-t border-black">
+          <span class="text-black text-sm font-semibold">8 topics &middot; 54 questions</span>
+          <span class="w-8 h-8 rounded-full border border-black flex items-center justify-center shrink-0 group-hover:bg-black group-hover:text-white transition-colors duration-200">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </div>
+      </a>
+
+      <!-- Card: Git -->
+      <a href="#" class="group flex flex-col justify-between border border-black rounded-2xl p-8 transition-all duration-200 hover:-translate-y-1 hover:shadow-[6px_6px_0_0_#000]">
+        <div>
+          <div class="flex items-center justify-between mb-8">
+            <div class="w-12 h-12 rounded-xl bg-black flex items-center justify-center shrink-0">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                <circle cx="7" cy="6" r="2" stroke="white" stroke-width="1.5"/>
+                <circle cx="7" cy="18" r="2" stroke="white" stroke-width="1.5"/>
+                <circle cx="17" cy="12" r="2" stroke="white" stroke-width="1.5"/>
+                <path d="M7 8V16" stroke="white" stroke-width="1.5"/>
+                <path d="M7 8C7 10.5 9 10.5 15 11.7" stroke="white" stroke-width="1.5"/>
+              </svg>
+            </div>
+            <span class="text-xs font-semibold border border-black rounded-full px-3 py-1">Tooling</span>
+          </div>
+          <h3 class="text-black text-xl font-bold tracking-tight mb-2">Git</h3>
+          <p class="text-black text-sm leading-relaxed mb-8">
+            Branching models, rebase vs merge, reflog recovery, and collaborative workflows.
+          </p>
+        </div>
+        <div class="flex items-center justify-between pt-8 border-t border-black">
+          <span class="text-black text-sm font-semibold">7 topics &middot; 48 questions</span>
+          <span class="w-8 h-8 rounded-full border border-black flex items-center justify-center shrink-0 group-hover:bg-black group-hover:text-white transition-colors duration-200">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- Divider -->
+  <div class="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-16">
+    <div class="border-t border-black"></div>
+  </div>
+
+  <!-- Stats strip -->
+  <section class="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-16 py-16 sm:py-24">
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-8">
+      <div class="flex flex-col gap-2">
+        <span class="text-black text-3xl sm:text-4xl font-bold tracking-tight">8</span>
+        <span class="text-black text-sm">Categories</span>
+      </div>
+      <div class="flex flex-col gap-2">
+        <span class="text-black text-3xl sm:text-4xl font-bold tracking-tight">105</span>
+        <span class="text-black text-sm">Topics</span>
+      </div>
+      <div class="flex flex-col gap-2">
+        <span class="text-black text-3xl sm:text-4xl font-bold tracking-tight">760+</span>
+        <span class="text-black text-sm">Questions</span>
+      </div>
+      <div class="flex flex-col gap-2">
+        <span class="text-black text-3xl sm:text-4xl font-bold tracking-tight">100%</span>
+        <span class="text-black text-sm">Free &amp; open</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t border-black">
+    <div class="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-16 py-16">
+      <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-8 mb-16">
+        <div class="max-w-[320px]">
+          <div class="flex items-center gap-2 mb-4">
+            <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
+              <rect x="1" y="1" width="30" height="30" rx="8" stroke="black" stroke-width="1.5"/>
+              <path d="M11 21V11L16 16L21 11V21" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span class="text-black font-bold text-lg tracking-tight">Quizly</span>
+          </div>
+          <p class="text-black text-sm leading-relaxed">
+            Self-contained, zero-to-hero quiz tracks for engineers who like to check their own understanding.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-3 gap-8 sm:gap-16">
+          <div class="flex flex-col gap-4">
+            <span class="text-black text-sm font-semibold">Product</span>
+            <a href="#" class="text-black text-sm hover:opacity-60 transition-opacity duration-200">Categories</a>
+            <a href="#" class="text-black text-sm hover:opacity-60 transition-opacity duration-200">Roadmap</a>
+            <a href="#" class="text-black text-sm hover:opacity-60 transition-opacity duration-200">Changelog</a>
+          </div>
+          <div class="flex flex-col gap-4">
+            <span class="text-black text-sm font-semibold">Resources</span>
+            <a href="#" class="text-black text-sm hover:opacity-60 transition-opacity duration-200">How it works</a>
+            <a href="#" class="text-black text-sm hover:opacity-60 transition-opacity duration-200">Contributing</a>
+            <a href="#" class="text-black text-sm hover:opacity-60 transition-opacity duration-200">GitHub</a>
+          </div>
+          <div class="flex flex-col gap-4">
+            <span class="text-black text-sm font-semibold">Company</span>
+            <a href="#" class="text-black text-sm hover:opacity-60 transition-opacity duration-200">About</a>
+            <a href="#" class="text-black text-sm hover:opacity-60 transition-opacity duration-200">Contact</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="border-t border-black pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <span class="text-black text-xs">&copy; 2026 Quizly. All rights reserved.</span>
+        <span class="text-black text-xs">Built for people who like getting things right.</span>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

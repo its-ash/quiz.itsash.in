@@ -1,5 +1,22 @@
 @reference "./tailwind.css";
 
+.grid-fade {
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 32px 32px;
+  -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 40%, transparent 100%);
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 40%, transparent 100%);
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.8); }
+}
+.pulse-dot {
+  animation: pulse-dot 1.6s ease-in-out infinite;
+}
+
 .md-prose {
   @apply text-c-fg;
 }
@@ -16,7 +33,7 @@
   @apply mb-4 mt-16 text-3xl font-bold tracking-tight text-c-fg sm:text-4xl;
   line-height: 1.1;
   scroll-margin-top: 5rem;
-  border-bottom: 2px solid var(--c-fg);
+  border-bottom: 1px solid var(--c-border-light);
   padding-bottom: 0.5rem;
 }
 
@@ -46,7 +63,8 @@
   margin-right: 0.5rem;
   margin-top: 0.25rem;
   padding: 0.25rem 0.5rem;
-  border: 2px solid var(--c-fg);
+  border-radius: 0.5rem;
+  border: 1px solid var(--c-border-light);
 }
 
 .md-prose a {
@@ -126,7 +144,8 @@
 
 .md-prose pre.shiki {
   overflow-x: auto;
-  border: 1px solid var(--c-fg);
+  border: 1px solid var(--c-border-light);
+  border-radius: 0.75rem;
   padding: 1rem;
   font-family: var(--font-mono);
   font-size: 0.875rem;
@@ -176,26 +195,11 @@
 
 .md-prose pre.shiki span {
   background: transparent;
-}
-
-.md-prose pre.shiki span {
-  color: var(--shiki-default) !important;
-}
-
-html.dark .md-prose pre.shiki span {
-  color: var(--shiki-github-dark) !important;
-}
-
-html.warm .md-prose pre.shiki span {
   color: var(--shiki-default) !important;
 }
 
 .md-prose pre.shiki {
-  background: var(--c-bg);
-}
-
-html.dark .md-prose pre.shiki {
-  background: var(--c-bg);
+  background: #0d0d0d;
 }
 
 .md-prose a code {
@@ -207,7 +211,7 @@ html.dark .md-prose pre.shiki {
 }
 
 .md-prose blockquote {
-  @apply mb-8 border-l-4 border-c-fg py-2 pl-6 pr-4 text-xl italic text-c-fg sm:text-2xl;
+  @apply mb-8 border-l-4 border-c-border-light py-2 pl-6 pr-4 text-xl italic text-c-fg sm:text-2xl;
   font-family: var(--font-serif);
 }
 
@@ -221,11 +225,11 @@ html.dark .md-prose pre.shiki {
 }
 
 .md-prose hr {
-  @apply my-12 h-1 border-0 bg-c-fg;
+  @apply my-12 h-px border-0 bg-c-border-light;
 }
 
 .md-prose img {
-  @apply mb-6 border-2 border-c-fg grayscale transition-all duration-300;
+  @apply mb-6 rounded-xl border border-c-border-light;
 }
 
 .md-prose strong {
@@ -233,7 +237,7 @@ html.dark .md-prose pre.shiki {
 }
 
 .md-prose table {
-  @apply mb-6 w-full border-2 border-c-fg text-left text-sm;
+  @apply mb-6 w-full rounded-xl border border-c-border-light text-left text-sm;
   display: block;
   overflow-x: auto;
   white-space: nowrap;
@@ -241,11 +245,11 @@ html.dark .md-prose pre.shiki {
 }
 
 .md-prose thead {
-  @apply border-b-2 border-c-fg;
+  @apply border-b border-c-border-light;
 }
 
 .md-prose th {
-  @apply border-b-2 border-c-fg px-4 py-3 font-mono text-xs font-medium uppercase tracking-widest text-c-fg whitespace-nowrap;
+  @apply border-b border-c-border-light px-4 py-3 font-mono text-xs font-medium uppercase tracking-widest text-c-fg whitespace-nowrap;
 }
 
 .md-prose td {
@@ -268,19 +272,7 @@ html.dark .md-prose pre.shiki {
 }
 
 .md-prose tbody tr:hover {
-  @apply bg-c-fg;
-}
-
-.md-prose tbody tr:hover td {
-  @apply text-c-bg;
-}
-
-.md-prose tbody tr:hover a {
-  @apply text-c-bg;
-}
-
-.md-prose tbody tr:hover code {
-  @apply border-c-bg text-c-bg;
+  @apply bg-white/5;
 }
 
 .md-prose tbody tr:last-child {
@@ -293,5 +285,5 @@ html.dark .md-prose pre.shiki {
 
 .md-prose input,
 .md-prose textarea {
-  @apply h-12 w-full border-b-2 border-c-fg bg-transparent px-0 text-base text-c-fg transition-all duration-100 placeholder:italic placeholder:text-c-muted-fg focus:border-b-[4px] focus:outline-none;
+  @apply h-12 w-full border-b border-c-border-light bg-transparent px-0 text-base text-c-fg transition-all duration-100 placeholder:italic placeholder:text-c-muted-fg focus:border-b-2 focus:border-c-fg focus:outline-none;
 }

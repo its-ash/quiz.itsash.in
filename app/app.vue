@@ -6,7 +6,7 @@ useHead({
   title: 'quiz — Minimalist Monochrome',
   meta: [
     { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-    { name: 'theme-color', content: '#000000' },
+    { name: 'theme-color', content: '#0a0a0a' },
     { name: 'charset', content: 'utf-8' },
     { name: 'robots', content: 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' },
     { name: 'author', content: 'quiz' },
@@ -60,23 +60,29 @@ useSeoMeta({
 </script>
 
 <template>
-  <div class="min-h-screen font-sans antialiased">
+  <div class="min-h-screen bg-c-bg font-sans text-c-fg antialiased">
     <AppHeader />
 
     <main class="relative z-10">
       <NuxtPage />
     </main>
 
-    <footer class="relative z-10 mt-24 border-t-[4px] border-c-fg py-12">
-      <div class="mx-auto flex max-w-6xl flex-col items-center gap-3 px-6 md:px-8 lg:px-12">
-        <p class="font-serif text-xl font-bold tracking-tight">quiz</p>
-        <p class="font-mono text-xs uppercase tracking-widest text-c-muted-fg">
-          {{ new Date().getFullYear() }} · Minimalist Monochrome
-        </p>
-        <a href="https://its-ash.github.io/" target="_blank" rel="noopener noreferrer"
-          class="font-mono text-xs uppercase tracking-widest text-c-muted-fg underline underline-offset-4 hover:text-c-fg">
-          its-ash.github.io
-        </a>
+    <footer class="relative z-10 border-t border-c-border-light">
+      <div class="mx-auto flex max-w-[1440px] flex-col items-center justify-between gap-8 px-4 py-12 sm:flex-row sm:px-8">
+        <div class="flex items-center gap-2">
+          <span class="flex h-8 w-8 items-center justify-center rounded-xl bg-c-fg font-mono text-sm font-800 text-c-bg">
+            &gt;_
+          </span>
+          <span class="font-mono text-sm font-700">
+            quiz<span class="text-c-muted-fg">://</span>
+          </span>
+          <span class="ml-4 font-mono text-xs text-c-muted-fg">&copy; {{ new Date().getFullYear() }} — all rights reserved</span>
+        </div>
+        <div class="flex items-center gap-8">
+          <a href="https://its-ash.github.io/" target="_blank" rel="noopener noreferrer" class="font-mono text-xs text-c-muted-fg transition hover:text-c-fg">
+            its-ash.github.io
+          </a>
+        </div>
       </div>
     </footer>
   </div>

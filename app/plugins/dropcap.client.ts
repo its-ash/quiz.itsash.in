@@ -2,7 +2,7 @@ export default defineNuxtPlugin(() => {
   if (!import.meta.client) return
 
   function applyDropCap() {
-    const p = document.querySelector('.md-prose p:first-of-type') as HTMLElement | null
+    const p = document.querySelector('.md-prose > p:first-of-type') as HTMLElement | null
     if (!p || p.dataset.dropcap) return
     p.dataset.dropcap = '1'
     const lh = parseFloat(getComputedStyle(p).lineHeight)

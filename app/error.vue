@@ -11,18 +11,18 @@ const handleError = () => clearError({ redirect: '/' })
 </script>
 
 <template>
-  <div class="flex min-h-screen flex-col items-center justify-center px-6 font-sans antialiased">
+  <div class="flex min-h-screen flex-col items-center justify-center bg-c-bg px-6 font-sans text-c-fg antialiased">
     <div class="flex flex-col items-center gap-8 text-center">
-      <div class="flex items-center gap-4">
-        <div class="h-1 w-16 bg-c-fg" />
-        <div class="h-4 w-4 border-2 border-c-fg" />
+      <div class="flex items-center gap-2 rounded-xl border border-c-border-light bg-white/5 px-4 py-2">
+        <span class="h-2 w-2 rounded-full bg-[#f87171]" />
+        <span class="font-mono text-xs">error</span>
       </div>
 
-      <h1 class="font-serif text-[10rem] font-black tracking-tighter text-c-fg sm:text-[14rem]" style="line-height: 0.8">
+      <h1 class="font-mono text-[6rem] font-800 tracking-tight text-c-fg sm:text-[8rem]" style="line-height: 0.9">
         {{ error?.statusCode || 500 }}
       </h1>
 
-      <p class="max-w-md font-serif text-2xl font-bold tracking-tight text-c-fg sm:text-3xl">
+      <p class="max-w-md font-mono text-xl font-700 tracking-tight text-c-fg sm:text-2xl">
         <template v-if="error?.statusCode === 404">
           Page not found
         </template>
@@ -43,7 +43,7 @@ const handleError = () => clearError({ redirect: '/' })
       <div class="flex flex-wrap items-center justify-center gap-4">
         <button
           type="button"
-          class="inline-flex items-center gap-2 border-2 border-c-fg px-6 py-3 font-mono text-xs font-medium uppercase tracking-widest text-c-fg transition-colors duration-100 hover:bg-c-fg hover:text-c-bg"
+          class="inline-flex items-center gap-2 rounded-xl bg-c-fg px-6 py-3 font-mono text-sm font-600 text-c-bg transition hover:opacity-90"
           @click="handleError"
         >
           <span>&larr;</span>
@@ -51,15 +51,10 @@ const handleError = () => clearError({ redirect: '/' })
         </button>
         <NuxtLink
           to="/"
-          class="inline-flex items-center gap-2 border-2 border-c-fg px-6 py-3 font-mono text-xs font-medium uppercase tracking-widest text-c-fg transition-colors duration-100 hover:bg-c-fg hover:text-c-bg"
+          class="inline-flex items-center gap-2 rounded-xl border border-c-border-light px-6 py-3 font-mono text-sm font-600 text-c-fg transition hover:border-white/30 hover:bg-white/5"
         >
-          <span>Browse index</span>
+          <span>Browse tracks</span>
         </NuxtLink>
-      </div>
-
-      <div class="mt-8 flex items-center gap-4">
-        <div class="h-1 w-16 bg-c-fg" />
-        <div class="h-4 w-4 border-2 border-c-fg" />
       </div>
     </div>
   </div>

@@ -76,13 +76,13 @@ async function downloadAsImage() {
 </script>
 
 <template>
-    <div class="code-wrapper-parent p-4" ref="wrapperRef">
-        <div  class="code-wrapper">
-            <div v-if="filename || language" class="code-header">
+    <div class="code-wrapper-parent" ref="wrapperRef">
+        <div class="code-wrapper">
+            <div class="code-header">
                 <div class="flex items-center gap-2">
-                    <span class="code-dot" />
-                    <span class="code-dot" />
-                    <span class="code-dot" />
+                    <span class="code-dot" style="background-color:#ff5f56" />
+                    <span class="code-dot" style="background-color:#ffbd2e" />
+                    <span class="code-dot" style="background-color:#27c93f" />
                 </div>
                 <div class="flex items-center gap-3">
                     <span v-if="filename" class="code-filename">{{ filename }}</span>
@@ -106,39 +106,36 @@ async function downloadAsImage() {
 </template>
 
 <style scoped>
-.code-wrapper-parent{
-    background: var(--c-bg);
-    border-radius: 0.5rem;
+.code-wrapper-parent {
+    margin-bottom: 1.5rem;
 }
+
 .code-wrapper {
-    border: 1px solid var(--c-fg);
+    border: 1px solid var(--c-border-light);
+    border-radius: 0.75rem;
     overflow: hidden;
+    background: #0d0d0d;
 }
 
 .code-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0.5rem 1rem;
-    border-bottom: 1px solid var(--c-fg);
-    background: var(--c-bg);
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--c-border-light);
+    background: rgba(255, 255, 255, 0.05);
 }
-
-
 
 .code-dot {
     width: 0.625rem;
     height: 0.625rem;
-    border: 1.5px solid var(--c-fg);
+    border-radius: 999px;
 }
 
 .code-filename,
 .code-lang {
     font-family: var(--font-mono);
     font-size: 0.75rem;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
     color: var(--c-muted-fg);
 }
 
@@ -187,7 +184,7 @@ async function downloadAsImage() {
 }
 
 .code-wrapper :deep(.hljs) {
-    background: var(--c-bg);
+    background: #0d0d0d;
     color: var(--c-fg);
 }
 </style>

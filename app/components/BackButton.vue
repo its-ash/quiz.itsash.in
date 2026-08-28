@@ -23,7 +23,7 @@ function goBack() {
   <component
     :is="to ? NuxtLink : 'button'"
     v-bind="to ? { to } : { type: 'button', onClick: goBack }"
-    class="group inline-flex items-center gap-2 border-2 border-c-fg px-5 py-2.5 font-mono text-xs font-medium uppercase tracking-widest text-c-fg transition-colors duration-100 hover:bg-c-fg hover:text-c-bg focus-visible:outline focus-visible:outline-3 focus-visible:outline-offset-3"
+    class="group inline-flex items-center gap-2 rounded-xl border border-c-border-light px-5 py-2.5 font-mono text-xs font-medium text-c-fg transition-colors duration-100 hover:border-white/30 hover:bg-white/5 focus-visible:outline-2 focus-visible:outline-offset-2"
   >
     <span>&larr;</span>
     <span>{{ label }}</span>

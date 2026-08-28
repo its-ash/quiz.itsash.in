@@ -27,12 +27,14 @@
   <url><loc>https://quiz.itsash.in/js/25-testing</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
   <url><loc>https://quiz.itsash.in/js/26-performance-and-optimization</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
   <url><loc>https://quiz.itsash.in/js/27-tooling-and-build-systems</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://quiz.itsash.in/js/28-typescript-essentials</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
   <url><loc>https://quiz.itsash.in/js</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
   <url><loc>https://quiz.itsash.in/lua/01-introduction-and-setup</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
   <url><loc>https://quiz.itsash.in/lua</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
   <url><loc>https://quiz.itsash.in/python/01-introduction-and-setup</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
   <url><loc>https://quiz.itsash.in/python/02-variables-and-data-types</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
   <url><loc>https://quiz.itsash.in/python/03-operators-and-expressions</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://quiz.itsash.in/python/06-strings-and-text</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
   <url><loc>https://quiz.itsash.in/python/11-closures-and-decorators</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
   <url><loc>https://quiz.itsash.in/python/12-classes-and-objects</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
   <url><loc>https://quiz.itsash.in/python/13-inheritance-and-polymorphism</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>

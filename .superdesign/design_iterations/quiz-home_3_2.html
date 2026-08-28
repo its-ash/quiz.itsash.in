@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>quiz:// — python track</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  html { font-family: 'Inter', ui-sans-serif, system-ui, sans-serif; }
+  .font-mono { font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace; }
+
+  @keyframes blink {
+    0%, 49% { opacity: 1; }
+    50%, 100% { opacity: 0; }
+  }
+  .cursor-blink { animation: blink 1s step-end infinite; }
+
+  .grid-fade {
+    background-image:
+      linear-gradient(to right, rgba(255,255,255,0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255,255,255,0.04) 1px, transparent 1px);
+    background-size: 32px 32px;
+    -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 40%, transparent 100%);
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 40%, transparent 100%);
+  }
+
+  ::selection {
+    background: rgba(255,255,255,0.2);
+    color: #ffffff;
+  }
+</style>
+</head>
+<body class="bg-[#0a0a0a] text-white antialiased">
+
+  <!-- ============ HEADER ============ -->
+  <header class="sticky top-0 z-50 border-b border-white/10 bg-[#0a0a0a]/90 backdrop-blur">
+    <div class="mx-auto max-w-[1440px] px-4 sm:px-8 py-4 flex items-center justify-between gap-4">
+
+      <!-- Logo -->
+      <a href="#" class="flex items-center gap-2 shrink-0">
+        <span class="flex h-8 w-8 items-center justify-center rounded-xl bg-white text-black font-mono font-800 text-sm">
+          &gt;_
+        </span>
+        <span class="font-mono font-700 text-lg tracking-tight">
+          quiz<span class="text-white/40">://</span>
+        </span>
+      </a>
+
+      <!-- Command palette style search -->
+      <div class="hidden md:flex flex-1 max-w-md">
+        <div class="flex w-full items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-4 py-2 transition hover:border-white/20 hover:bg-white/10 cursor-text">
+          <svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="7"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <span class="font-mono text-sm flex-1">Search categories, topics&hellip;</span>
+          <kbd class="hidden lg:inline-flex items-center gap-1 rounded-lg border border-white/10 bg-white/5 px-2 py-1 font-mono text-xs">
+            ⌘K
+          </kbd>
+        </div>
+      </div>
+
+      <!-- Nav -->
+      <nav class="flex items-center gap-4 sm:gap-8">
+        <a href="quiz-home_3.html" class="hidden sm:inline-block font-mono text-sm hover:opacity-70 transition">categories</a>
+        <a href="#" class="hidden sm:inline-block font-mono text-sm hover:opacity-70 transition">about</a>
+        <a href="#" class="inline-flex items-center rounded-xl border border-white/10 bg-white text-black font-mono text-sm font-600 px-4 py-2 transition hover:bg-white/90">
+          sign in
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ============ BREADCRUMB ============ -->
+  <div class="border-b border-white/10 bg-[#0a0a0a]">
+    <div class="mx-auto max-w-[1440px] px-4 sm:px-8 py-3">
+      <nav class="flex items-center gap-2 font-mono text-xs text-white/60">
+        <a href="quiz-home_3.html" class="hover:text-white transition">quiz<span class="text-white/40">://</span></a>
+        <span class="text-white/30">/</span>
+        <span class="text-white">python</span>
+      </nav>
+    </div>
+  </div>
+
+  <!-- ============ PAGE HEADER / BANNER ============ -->
+  <section class="relative overflow-hidden border-b border-white/10">
+    <div class="absolute inset-0 grid-fade pointer-events-none"></div>
+
+    <div class="relative mx-auto max-w-[1440px] px-4 sm:px-8 py-12 md:py-16">
+      <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8">
+
+        <div class="max-w-2xl">
+          <div class="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-4 py-2 mb-6">
+            <span class="h-2 w-2 rounded-full" style="background-color:#3572A5"></span>
+            <span class="font-mono text-xs">zero to hero &mdash; python track</span>
+          </div>
+
+          <h1 class="font-mono font-800 text-3xl sm:text-4xl lg:text-5xl leading-tight tracking-tight mb-4 flex items-center gap-4">
+            <span class="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/5 font-mono font-700 text-xl">
+              Py
+            </span>
+            python
+          </h1>
+
+          <p class="text-base sm:text-lg text-white/70 mb-6">
+            From interpreter basics to metaclasses, async internals, and the GIL &mdash; every topic
+            below is a self-contained quiz built from production-grade gotchas, edge cases, and
+            best-practice judgment calls.
+          </p>
+
+          <div class="flex flex-wrap items-center gap-3">
+            <span class="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-[#141414] px-4 py-2 font-mono text-xs text-white/70">
+              28 topics
+            </span>
+            <span class="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-[#141414] px-4 py-2 font-mono text-xs text-white/70">
+              560 questions
+            </span>
+            <span class="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-[#141414] px-4 py-2 font-mono text-xs text-white/70">
+              ~20 Q / topic
+            </span>
+            <span class="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-[#141414] px-4 py-2 font-mono text-xs text-white/70">
+              6 parts
+            </span>
+          </div>
+        </div>
+
+        <!-- mini terminal stat -->
+        <div class="rounded-2xl border border-white/10 bg-[#111111] shadow-[0_0_50px_-15px_rgba(53,114,165,0.35)] overflow-hidden w-full lg:w-80 shrink-0">
+          <div class="flex items-center gap-2 border-b border-white/10 bg-white/5 px-4 py-3">
+            <span class="h-3 w-3 rounded-full bg-[#ff5f56]"></span>
+            <span class="h-3 w-3 rounded-full bg-[#ffbd2e]"></span>
+            <span class="h-3 w-3 rounded-full bg-[#27c93f]"></span>
+            <span class="ml-2 font-mono text-xs text-white/60">python3</span>
+          </div>
+          <div class="p-5 font-mono text-sm leading-relaxed space-y-1.5">
+            <p><span class="text-white/40">&gt;&gt;&gt;</span> quiz.progress()</p>
+            <p class="text-white/70">0 / 28 topics complete</p>
+            <p class="text-white/70">0 / 560 questions answered</p>
+            <p class="pt-2 flex items-center gap-1">
+              <span class="text-white/40">&gt;&gt;&gt;</span>
+              <span class="cursor-blink">&#9608;</span>
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TOPIC LISTING ============ -->
+  <main class="mx-auto max-w-[1440px] px-4 sm:px-8 py-12 md:py-16">
+
+    <!-- Part 1 -->
+    <section class="mb-14">
+      <div class="flex items-baseline justify-between gap-4 mb-5">
+        <h2 class="font-mono font-700 text-lg sm:text-xl">
+          <span class="text-white/40">Part 1 &mdash;</span> Foundations
+        </h2>
+        <span class="font-mono text-xs text-white/60">6 topics</span>
+      </div>
+
+      <div class="flex flex-col gap-3">
+
+        <a href="#" class="group flex items-center gap-4 sm:gap-6 rounded-2xl border border-white/10 bg-[#141414] px-5 sm:px-6 py-4 sm:py-5 transition hover:border-white/30 hover:bg-white/5 hover:shadow-[0_0_40px_-12px_rgba(53,114,165,0.35)]">
+          <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/5 font-mono font-700 text-sm">01</span>
+          <div class="flex-1 min-w-0">
+            <h3 class="font-mono font-600 text-base mb-1">Introduction &amp; Setup</h3>
+            <p class="text-sm text-white/60 truncate">Interpreter, REPL, and environment setup mistakes that break builds before you write a line of logic.</p>
+          </div>
+          <span class="hidden sm:inline font-mono text-xs text-white/60 shrink-0">20 questions</span>
+          <svg class="h-5 w-5 text-white/40 shrink-0 transition group-hover:text-white group-hover:translate-x-1 group-hover:-translate-y-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="7" y1="17" x2="17" y2="7"></line>
+            <polyline points="7 7 17 7 17 17"></polyline>
+          </svg>
+        </a>
+
+        <a href="#" class="group flex items-center gap-4 sm:gap-6 rounded-2xl border border-white/10 bg-[#141414] px-5 sm:px-6 py-4 sm:py-5 transition hover:border-white/30 hover:bg-white/5 hover:shadow-[0_0_40px_-12px_rgba(53,114,165,0.35)]">
+          <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/5 font-mono font-700 text-sm">02</span>
+          <div class="flex-1 min-w-0">
+            <h3 class="font-mono font-600 text-base mb-1">Variables &amp; Data Types</h3>
+            <p class="text-sm text-white/60 truncate">Mutable vs. immutable, dynamic typing, and the small-int caching quirk that fools every beginner.</p>
+          </div>
+          <span class="hidden sm:inline font-mono text-xs text-white/60 shrink-0">20 questions</span>
+          <svg class="h-5 w-5 text-white/40 shrink-0 transition group-hover:text-white group-hover:translate-x-1 group-hover:-translate-y-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="7" y1="17" x2="17" y2="7"></line>
+            <polyline points="7 7 17 7 17 17"></polyline>
+          </svg>
+        </a>
+
+        <a href="#" class="group flex items-center gap-4 sm:gap-6 rounded-2xl border border-white/10 bg-[#141414] px-5 sm:px-6 py-4 sm:py-5 transition hover:border-white/30 hover:bg-white/5 hover:shadow-[0_0_40px_-12px_rgba(53,114,165,0.35)]">
+          <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/5 font-mono font-700 text-sm">03</span>
+          <div class="flex-1 min-w-0">
+            <h3 class="font-mono font-600 text-base mb-1">Operators &amp; Expressions</h3>
+            <p class="text-sm text-white/60 truncate">Operator precedence, chained comparisons, and truthy/falsy traps that silently change program logic.</p>
+          </div>
+          <span class="hidden sm:inline font-mono text-xs text-white/60 shrink-0">20 questions</span>
+          <svg class="h-5 w-5 text-white/40 shrink-0 transition group-hover:text-white group-hover:translate-x-1 group-hover:-translate-y-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="7" y1="17" x2="17" y2="7"></line>
+            <polyline points="7 7 17 7 17 17"></polyline>
+          </svg>
+        </a>
+
+        <a href="#" class="group flex items-center gap-4 sm:gap-6 rounded-2xl border border-white/10 bg-[#141414] px-5 sm:px-6 py-4 sm:py-5 transition hover:border-white/30 hover:bg-white/5 hover:shadow-[0_0_40px_-12px_rgba(53,114,165,0.35)]">
+          <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/5 font-mono font-700 text-sm">04</span>
+          <div class="flex-1 min-w-0">
+            <h3 class="font-mono font-600 text-base mb-1">Control Flow</h3>
+            <p class="text-sm text-white/60 truncate">if/elif/else, loops, the walrus operator, and the for-else clause nobody remembers exists.</p>
+          </div>
+          <span class="hidden sm:inline font-mono text-xs text-white/60 shrink-0">20 questions</span>
+          <svg class="h-5 w-5 text-white/40 shrink-0 transition group-hover:text-white group-hover:translate-x-1 group-hover:-translate-y-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="7" y1="17" x2="17" y2="7"></line>
+            <polyline points="7 7 17 7 17 17"></polyline>
+          </svg>
+        </a>
+
+        <a href="#" class="group flex items-center gap-4 sm:gap-6 rounded-2xl border border-white/10 bg-[#141414] px-5 sm:px-6 py-4 sm:py-5 transition hover:border-white/30 hover:bg-white/5 hover:shadow-[0_0_40px_-12px_rgba(53,114,165,0.35)]">
+          <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/5 font-mono font-700 text-sm">05</span>
+          <div class="flex-1 min-w-0">
+            <h3 class="font-mono font-600 text-base mb-1">Functions</h3>
+            <p class="text-sm text-white/60 truncate">Default args, *args/**kwargs, scope rules, and the mutable-default-argument bug that ships to prod.</p>
+          </div>
+          <span class="hidden sm:inline font-mono text-xs text-white/60 shrink-0">20 questions</span>
+          <svg class="h-5 w-5 text-white/40 shrink-0 transition group-hover:text-white group-hover:translate-x-1 group-hover:-translate-y-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="7" y1="17" x2="17" y2="7"></line>
+            <polyline points="7 7 17 7 17 17"></polyline>
+          </svg>
+        </a>
+
+        <a href="#" class="group flex items-center gap-4 sm:gap-6 rounded-2xl border border-white/10 bg-[#141414] px-5 sm:px-6 py-4 sm:py-5 transition hover:border-white/30 hover:bg-white/5 hover:shadow-[0_0_40px_-12px_rgba(53,114,165,0.35)]">
+          <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/5 font-mono font-700 text-sm">06</span>
+          <div class="flex-1 min-w-0">
+            <h3 class="font-mono font-600 text-base mb-1">Strings &amp; Text</h3>
+            <p class="text-sm text-white/60 truncate">Encoding, formatting, immutability, and slicing edge cases that trip up even senior engineers.</p>
+          </div>
+          <span class="hidden sm:inline font-mono text-xs text-white/60 shrink-0">20 questions</span>
+          <svg class="h-5 w-5 text-white/40 shrink-0 transition group-hover:text-white group-hover:translate-x-1 group-hover:-translate-y-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="7" y1="17" x2="17" y2="7"></line>
+            <polyline points="7 7 17 7 17 17"></polyline>
+          </svg>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- Part 2 -->
+    <section class="mb-14">
+      <div class="flex items-baseline justify-between gap-4 mb-5">
+        <h2 class="font-mono font-700 text-lg sm:text-xl">
+          <span class="text-white/40">Part 2 &mdash;</span> Core Data Structures
+        </h2>
+        <span class="font-mono text-xs text-white/60">5 topics</span>
+      </div>
+
+      <div class="flex flex-col gap-3">
+
+        <a href="#" class="group flex items-center gap-4 sm:gap-6 rounded-2xl border border-white/10 bg-[#141414] px-5 sm:px-6 py-4 sm:py-5 transition hover:border-white/30 hover:bg-white/5 hover:shadow-[0_0_40px_-12px_rgba(53,114,165,0.35)]">
+          <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/5 font-mono font-700 text-sm">07</span>
+          <div class="flex-1 min-w-0">
+            <h3 class="font-mono font-600 text-base mb-1">Lists &amp; Tuples</h3>
+            <p class="text-sm text-white/60 truncate">Aliasing, shallow copies, and why tuples aren't always as immutable as you think.</p>
+          </div>
+          <span class="hidden sm:inline font-mono text-xs text-white/60 shrink-0">20 questions</span>
+          <svg class="h-5 w-5 text-white/40 shrink-0 transition group-hover:text-white group-hover:translate-x-1 group-hover:-translate-y-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="7" y1="17" x2="17" y2="7"></line>
+            <polyline points="7 7 17 7 17 17"></polyline>
+          </svg>
+        </a>
+
+        <a href="#" class="group flex items-center gap-4 sm:gap-6 rounded-2xl border border-white/10 bg-[#141414] px-5 sm:px-6 py-4 sm:py-5 transition hover:border-white/30 hover:bg-white/5 hover:shadow-[0_0_40px_-12px_rgba(53,114,165,0.35)]">
+          <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/5 font-mono font-700 text-sm">08</span>
+          <div class="flex-1 min-w-0">
+            <h3 class="font-mono font-600 text-base mb-1">Dictionaries &amp; Sets</h3>
+            <p class="text-sm text-white/60 truncate">Hashing, insertion-order guarantees, and key-mutation pitfalls that corrupt lookups.</p>
+          </div>
+          <span class="hidden sm:inline font-mono text-xs text-white/60 shrink-0">20 questions</span>
+          <svg class="h-5 w-5 text-white/40 shrink-0 transition group-hover:text-white group-hover:translate-x-1 group-hover:-translate-y-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="7" y1="17" x2="17" y2="7"></line>
+            <polyline points="7 7 17 7 17 17"></polyline>
+          </svg>
+        </a>
+
+        <a href="#" class="group flex items-center gap-4 sm:gap-6 rounded-2xl border border-white/10 bg-[#141414] px-5 sm:px-6 py-4 sm:py-5 transition hover:border-white/30 hover:bg-white/5 hover:shadow-[0_0_40px_-12px_rgba(53,114,165,0.35)]">
+          <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/5 font-mono font-700 text-sm">09</span>
+          <div class="flex-1 min-w-0">
+            <h3 class="font-mono font-600 text-base mb-1">Comprehensions &amp; Generators</h3>
+            <p class="text-sm text-white/60 truncate">Lazy evaluation, memory tradeoffs, and scoping quirks inside nested comprehensions.</p>
+          </div>
+          <span class="hidden sm:inline font-mono text-xs text-white/60 shrink-0">20 questions</span>
+          <svg class="h-5 w-5 text-white/40 shrink-0 transition group-hover:text-white group-hover:translate-x-1 group-hover:-translate-y-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="7" y1="17" x2="17" y2="7"></line>
+            <polyline points="7 7 17 7 17 17"></polyline>
+          </svg>
+        </a>
+
+        <a href="#" class="group flex items-center gap-4 sm:gap-6 rounded-2xl border border-white/10 bg-[#141414] px-5 sm:px-6 py-4 sm:py-5 transition hover:border-white/30 hover:bg-white/5 hover:shadow-[0_0_40px_-12px_rgba(53,114,165,0.35)]">
+          <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/5 font-mono font-700 text-sm">10</span>
+          <div class="flex-1 min-w-0">
+            <h3 class="font-mono font-600 text-base mb-1">Functional Programming</h3>
+            <p class="text-sm text-white/60 truncate">map/filter/reduce, lambdas, and first-class functions for cleaner data pipelines.</p>
+          </div>
+          <span class="hidden sm:inline font-mono text-xs text-white/60 shrink-0">20 questions</span>
+          <svg class="h-5 w-5 text-white/40 shrink-0 transition group-hover:text-white group-hover:translate-x-1 group-hover:-translate-y-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="7" y1="17" x2="17" y2="7"></line>
+            <polyline points="7 7 17 7 17 17"></polyline>
+          </svg>
+        </a>
+
+        <a href="#" class="group flex items-center gap-4 sm:gap-6 rounded-2xl border border-white/10 bg-[#141414] px-5 sm:px-6 py-4 sm:py-5 transition hover:border-white/30 hover:bg-white/5 hover:shadow-[0_0_40px_-12px_rgba(53,114,165,0.35)]">
+          <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/5 font-mono font-700 text-sm">11</span>
+          <div class="flex-1 min-w-0">
+            <h3 class="font-mono font-600 text-base mb-1">Closures &amp; Decorators</h3>
+            <p class="text-sm text-white/60 truncate">Late binding in closures and the decorator stacking order that changes behavior.</p>
+          </div>
+          <span class="hidden sm:inline font-mono text-xs text-white/60 shrink-0">20 questions</span>
+          <svg class="h-5 w-5 text-white/40 shrink-0 transition group-hover:text-white group-hover:translate-x-1 group-hover:-translate-y-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="7" y1="17" x2="17" y2="7"></line>
+            <polyline points="7 7 17 7 17 17"></polyline>
+          </svg>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- Part 3 -->
+    <section class="mb-14">
+      <div class="flex items-baseline justify-between gap-4 mb-5">
+        <h2 class="font-mono font-700 text-lg sm:text-xl">
+          <span class="text-white/40">Part 3 &mdash;</span> OOP &amp; Design
+        </h2>
+        <span class="font-mono text-xs text-white/60">4 topics</span>
+      </div>
+
+      <div class="flex flex-col gap-3">
+
+        <a href="#" class="group flex items-center gap-4 sm:gap-6 rounded-2xl border border-white/10 bg-[#141414] px-5 sm:px-6 py-4 sm:py-5 transition hover:border-white/30 hover:bg-white/5 hover:shadow-[0_0_40px_-12px_rgba(53,114,165,0.35)]">
+          <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/5 font-mono font-700 text-sm">12</span>
+          <div class="flex-1 min-w-0">
+            <h3 class="font-mono font-600 text-base mb-1">Classes &amp; Objects</h3>
+            <p class="text-sm text-white/60 truncate">Class vs. instance attributes, and the shared-mutable-state bug every OOP beginner hits.</p>
+          </div>
+          <span class="hidden sm:inline font-mono text-xs text-white/60 shrink-0">20 questions</span>
+          <svg class="h-5 w-5 text-white/40 shrink-0 transition group-hover:text-white group-hover:translate-x-1 group-hover:-translate-y-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="7" y1="17" x2="17" y2="7"></line>
+            <polyline points="7 7 17 7 17 17"></polyline>
+          </svg>
+        </a>
+
+        <a href="#" class="group flex items-center gap-4 sm:gap-6 rounded-2xl border border-white/10 bg-[#141414] px-5 sm:px-6 py-4 sm:py-5 transition hover:border-white/30 hover:bg-white/5 hover:shadow-[0_0_40px_-12px_rgba(53,114,165,0.35)]">
+          <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/5 font-mono font-700 text-sm">13</span>
+          <div class="flex-1 min-w-0">
+            <h3 class="font-mono font-600 text-base mb-1">Inheritance &amp; Polymorphism</h3>
+            <p class="text-sm text-white/60 truncate">MRO, super(), and diamond inheritance resolved by Python's C3 linearization.</p>
+          </div>
+          <span class="hidden sm:inline font-mono text-xs text-white/60 shrink-0">20 questions</span>
+          <svg class="h-5 w-5 text-white/40 shrink-0 transition group-hover:text-white group-hover:translate-x-1 group-hover:-translate-y-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="7" y1="17" x2="17" y2="7"></line>
+            <polyline points="7 7 17 7 17 17"></polyline>
+          </svg>
+        </a>
+
+        <a href="#" class="group flex items-center gap-4 sm:gap-6 rounded-2xl border border-white/10 bg-[#141414] px-5 sm:px-6 py-4 sm:py-5 transition hover:border-white/30 hover:bg-white/5 hover:shadow-[0_0_40px_-12px_rgba(53,114,165,0.35)]">
+          <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/5 font-mono font-700 text-sm">14</span>
+          <div class="flex-1 min-w-0">
+            <h3 class="font-mono font-600 text-base mb-1">Magic Methods &amp; Protocols</h3>
+            <p class="text-sm text-white/60 truncate">Dunder methods, operator overloading, and the protocols that make objects Pythonic.</p>
+          </div>
+          <span class="hidden sm:inline font-mono text-xs text-white/60 shrink-0">20 questions</span>
+          <svg class="h-5 w-5 text-white/40 shrink-0 transition group-hover:text-white group-hover:translate-x-1 group-hover:-translate-y-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="7" y1="17" x2="17" y2="7"></line>
+            <polyline points="7 7 17 7 17 17"></polyline>
+          </svg>
+        </a>
+
+        <a href="#" class="group flex items-center gap-4 sm:gap-6 rounded-2xl border border-white/10 bg-[#141414] px-5 sm:px-6 py-4 sm:py-5 transition hover:border-white/30 hover:bg-white/5 hover:shadow-[0_0_40px_-12px_rgba(53,114,165,0.35)]">
+          <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/5 font-mono font-700 text-sm">15</span>
+          <div class="flex-1 min-w-0">
+            <h3 class="font-mono font-600 text-base mb-1">Properties &amp; Descriptors</h3>
+            <p class="text-sm text-white/60 truncate">Computed attributes, validation, and the descriptor protocol powering @property.</p>
+          </div>
+          <span class="hidden sm:inline font-mono text-xs text-white/60 shrink-0">20 questions</span>
+          <svg class="h-5 w-5 text-white/40 shrink-0 transition group-hover:text-white group-hover:translate-x-1 group-hover:-translate-y-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="7" y1="17" x2="17" y2="7"></line>
+            <polyline points="7 7 17 7 17 17"></polyline>
+          </svg>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- Part 4 -->
+    <section class="mb-14">
+      <div class="flex items-baseline justify-between gap-4 mb-5">
+        <h2 class="font-mono font-700 text-lg sm:text-xl">
+          <span class="text-white/40">Part 4 &mdash;</span> Robustness &amp; I/O
+        </h2>
+        <span class="font-mono text-xs text-white/60">5 topics</span>
+      </div>
+
+      <div class="flex flex-col gap-3">
+
+        <a href="#" class="group flex items-center gap-4 sm:gap-6 rounded-2xl border border-white/10 bg-[#141414] px-5 sm:px-6 py-4 sm:py-5 transition hover:border-white/30 hover:bg-white/5 hover:shadow-[0_0_40px_-12px_rgba(53,114,165,0.35)]">
+          <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/5 font-mono font-700 text-sm">16</span>
+          <div class="flex-1 min-w-0">
+            <h3 class="font-mono font-600 text-base mb-1">Error Handling</h3>
+            <p class="text-sm text-white/60 truncate">Exception hierarchies, bare except traps, and why silently swallowing errors is dangerous.</p>
+          </div>
+          <span class="hidden sm:inline font-mono text-xs text-white/60 shrink-0">20 questions</span>
+          <svg class="h-5 w-5 text-white/40 shrink-0 transition group-hover:text-white group-hover:translate-x-1 group-hover:-translate-y-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="7" y1="17" x2="17" y2="7"></line>
+            <polyline points="7 7 17 7 17 17"></polyline>
+          </svg>
+        </a>
+
+        <a href="#" class="group flex items-center gap-4 sm:gap-6 rounded-2xl border border-white/10 bg-[#141414] px-5 sm:px-6 py-4 sm:py-5 transition hover:border-white/30 hover:bg-white/5 hover:shadow-[0_0_40px_-12px_rgba(53,114,165,0.35)]">
+          <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/5 font-mono font-700 text-sm">17</span>
+          <div class="flex-1 min-w-0">
+            <h3 class="font-mono font-600 text-base mb-1">Modules &amp; Packages</h3>
+            <p class="text-sm text-white/60 truncate">Import mechanics, circular imports, and the __init__.py behavior that surprises teams.</p>
+          </div>
+          <span class="hidden sm:inline font-mono text-xs text-white/60 shrink-0">20 questions</span>
+          <svg class="h-5 w-5 text-white/40 shrink-0 transition group-hover:text-white group-hover:translate-x-1 group-hover:-translate-y-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="7" y1="17" x2="17" y2="7"></line>
+            <polyline points="7 7 17 7 17 17"></polyline>
+          </svg>
+        </a>
+
+        <a href="#" class="group flex items-center gap-4 sm:gap-6 rounded-2xl border border-white/10 bg-[#141414] px-5 sm:px-6 py-4 sm:py-5 transition hover:border-white/30 hover:bg-white/5 hover:shadow-[0_0_40px_-12px_rgba(53,114,165,0.35)]">
+          <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/5 font-mono font-700 text-sm">18</span>
+          <div class="flex-1 min-w-0">
+            <h3 class="font-mono font-600 text-base mb-1">File I/O &amp; Serialization</h3>
+            <p class="text-sm text-white/60 truncate">Context managers, encoding pitfalls, and JSON/pickle tradeoffs for persisting data.</p>
+          </div>
+          <span class="hidden sm:inline font-mono text-xs text-white/60 shrink-0">20 questions</span>
+          <svg class="h-5 w-5 text-white/40 shrink-0 transition group-hover:text-white group-hover:translate-x-1 group-hover:-translate-y-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="7" y1="17" x2="17" y2="7"></line>
+            <polyline points="7 7 17 7 17 17"></polyline>
+          </svg>
+        </a>
+
+        <a href="#" class="group flex items-center gap-4 sm:gap-6 rounded-2xl border border-white/10 bg-[#141414] px-5 sm:px-6 py-4 sm:py-5 transition hover:border-white/30 hover:bg-white/5 hover:shadow-[0_0_40px_-12px_rgba(53,114,165,0.35)]">
+          <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/5 font-mono font-700 text-sm">19</span>
+          <div class="flex-1 min-w-0">
+            <h3 class="font-mono font-600 text-base mb-1">Iterators &amp; Context Managers</h3>
+            <p class="text-sm text-white/60 truncate">The iterator protocol, StopIteration, and writing custom context managers with __enter__/__exit__.</p>
+          </div>
+          <span class="hidden sm:inline font-mono text-xs text-white/60 shrink-0">20 questions</span>
+          <svg class="h-5 w-5 text-white/40 shrink-0 transition group-hover:text-white group-hover:translate-x-1 group-hover:-translate-y-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="7" y1="17" x2="17" y2="7"></line>
+            <polyline points="7 7 17 7 17 17"></polyline>
+          </svg>
+        </a>
+
+        <a href="#" class="group flex items-center gap-4 sm:gap-6 rounded-2xl border border-white/10 bg-[#141414] px-5 sm:px-6 py-4 sm:py-5 transition hover:border-white/30 hover:bg-white/5 hover:shadow-[0_0_40px_-12px_rgba(53,114,165,0.35)]">
+          <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/5 font-mono font-700 text-sm">20</span>
+          <div class="flex-1 min-w-0">
+            <h3 class="font-mono font-600 text-base mb-1">Type Hints &amp; Typing</h3>
+            <p class="text-sm text-white/60 truncate">Static typing with mypy, generics, and the runtime-vs-type-checker gap that catches teams off guard.</p>
+          </div>
+          <span class="hidden sm:inline font-mono text-xs text-white/60 shrink-0">20 questions</span>
+          <svg class="h-5 w-5 text-white/40 shrink-0 transition group-hover:text-white group-hover:translate-x-1 group-hover:-translate-y-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="7" y1="17" x2="17" y2="7"></line>
+            <polyline points="7 7 17 7 17 17"></polyline>
+          </svg>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- Part 5 -->
+    <section class="mb-14">
+      <div class="flex items-baseline justify-between gap-4 mb-5">
+        <h2 class="font-mono font-700 text-lg sm:text-xl">
+          <span class="text-white/40">Part 5 &mdash;</span> Concurrency &amp; Meta
+        </h2>
+        <span class="font-mono text-xs text-white/60">3 topics</span>
+      </div>
+
+      <div class="flex flex-col gap-3">
+
+        <a href="#" class="group flex items-center gap-4 sm:gap-6 rounded-2xl border border-white/10 bg-[#141414] px-5 sm:px-6 py-4 sm:py-5 transition hover:border-white/30 hover:bg-white/5 hover:shadow-[0_0_40px_-12px_rgba(53,114,165,0.35)]">
+          <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/5 font-mono font-700 text-sm">21</span>
+          <div class="flex-1 min-w-0">
+            <h3 class="font-mono font-600 text-base mb-1">Concurrency (Threading &amp; Multiprocessing)</h3>
+            <p class="text-sm text-white/60 truncate">The GIL, race conditions, and when threads help versus when they silently don't.</p>
+          </div>
+          <span class="hidden sm:inline font-mono text-xs text-white/60 shrink-0">20 questions</span>
+          <svg class="h-5 w-5 text-white/40 shrink-0 transition group-hover:text-white group-hover:translate-x-1 group-hover:-translate-y-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="7" y1="17" x2="17" y2="7"></line>
+            <polyline points="7 7 17 7 17 17"></polyline>
+          </svg>
+        </a>
+
+        <a href="#" class="group flex items-center gap-4 sm:gap-6 rounded-2xl border border-white/10 bg-[#141414] px-5 sm:px-6 py-4 sm:py-5 transition hover:border-white/30 hover:bg-white/5 hover:shadow-[0_0_40px_-12px_rgba(53,114,165,0.35)]">
+          <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/5 font-mono font-700 text-sm">22</span>
+          <div class="flex-1 min-w-0">
+            <h3 class="font-mono font-600 text-base mb-1">Async/Await</h3>
+            <p class="text-sm text-white/60 truncate">Event loops, coroutines, and the blocking-call-in-async-code mistake that stalls everything.</p>
+          </div>
+          <span class="hidden sm:inline font-mono text-xs text-white/60 shrink-0">20 questions</span>
+          <svg class="h-5 w-5 text-white/40 shrink-0 transition group-hover:text-white group-hover:translate-x-1 group-hover:-translate-y-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="7" y1="17" x2="17" y2="7"></line>
+            <polyline points="7 7 17 7 17 17"></polyline>
+          </svg>
+        </a>
+
+        <a href="#" class="group flex items-center gap-4 sm:gap-6 rounded-2xl border border-white/10 bg-[#141414] px-5 sm:px-6 py-4 sm:py-5 transition hover:border-white/30 hover:bg-white/5 hover:shadow-[0_0_40px_-12px_rgba(53,114,165,0.35)]">
+          <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/5 font-mono font-700 text-sm">23</span>
+          <div class="flex-1 min-w-0">
+            <h3 class="font-mono font-600 text-base mb-1">Metaprogramming</h3>
+            <p class="text-sm text-white/60 truncate">Metaclasses, dynamic attribute access, and code that writes code at runtime.</p>
+          </div>
+          <span class="hidden sm:inline font-mono text-xs text-white/60 shrink-0">20 questions</span>
+          <svg class="h-5 w-5 text-white/40 shrink-0 transition group-hover:text-white group-hover:translate-x-1 group-hover:-translate-y-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="7" y1="17" x2="17" y2="7"></line>
+            <polyline points="7 7 17 7 17 17"></polyline>
+          </svg>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- Part 6 -->
+    <section>
+      <div class="flex items-baseline justify-between gap-4 mb-5">
+        <h2 class="font-mono font-700 text-lg sm:text-xl">
+          <span class="text-white/40">Part 6 &mdash;</span> Professional &amp; Expert
+        </h2>
+        <span class="font-mono text-xs text-white/60">5 topics</span>
+      </div>
+
+      <div class="flex flex-col gap-3">
+
+        <a href="#" class="group flex items-center gap-4 sm:gap-6 rounded-2xl border border-white/10 bg-[#141414] px-5 sm:px-6 py-4 sm:py-5 transition hover:border-white/30 hover:bg-white/5 hover:shadow-[0_0_40px_-12px_rgba(53,114,165,0.35)]">
+          <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/5 font-mono font-700 text-sm">24</span>
+          <div class="flex-1 min-w-0">
+            <h3 class="font-mono font-600 text-base mb-1">Testing</h3>
+            <p class="text-sm text-white/60 truncate">pytest fixtures, mocking, and coverage gaps that let regressions slip through CI.</p>
+          </div>
+          <span class="hidden sm:inline font-mono text-xs text-white/60 shrink-0">20 questions</span>
+          <svg class="h-5 w-5 text-white/40 shrink-0 transition group-hover:text-white group-hover:translate-x-1 group-hover:-translate-y-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="7" y1="17" x2="17" y2="7"></line>
+            <polyline points="7 7 17 7 17 17"></polyline>
+          </svg>
+        </a>
+
+        <a href="#" class="group flex items-center gap-4 sm:gap-6 rounded-2xl border border-white/10 bg-[#141414] px-5 sm:px-6 py-4 sm:py-5 transition hover:border-white/30 hover:bg-white/5 hover:shadow-[0_0_40px_-12px_rgba(53,114,165,0.35)]">
+          <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/5 font-mono font-700 text-sm">25</span>
+          <div class="flex-1 min-w-0">
+            <h3 class="font-mono font-600 text-base mb-1">Packaging &amp; Virtual Environments</h3>
+            <p class="text-sm text-white/60 truncate">Dependency isolation, pip/poetry tradeoffs, and the version-conflict hell venvs solve.</p>
+          </div>
+          <span class="hidden sm:inline font-mono text-xs text-white/60 shrink-0">20 questions</span>
+          <svg class="h-5 w-5 text-white/40 shrink-0 transition group-hover:text-white group-hover:translate-x-1 group-hover:-translate-y-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="7" y1="17" x2="17" y2="7"></line>
+            <polyline points="7 7 17 7 17 17"></polyline>
+          </svg>
+        </a>
+
+        <a href="#" class="group flex items-center gap-4 sm:gap-6 rounded-2xl border border-white/10 bg-[#141414] px-5 sm:px-6 py-4 sm:py-5 transition hover:border-white/30 hover:bg-white/5 hover:shadow-[0_0_40px_-12px_rgba(53,114,165,0.35)]">
+          <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/5 font-mono font-700 text-sm">26</span>
+          <div class="flex-1 min-w-0">
+            <h3 class="font-mono font-600 text-base mb-1">Performance &amp; Optimization</h3>
+            <p class="text-sm text-white/60 truncate">Profiling, algorithmic complexity, and the premature-optimization traps to avoid.</p>
+          </div>
+          <span class="hidden sm:inline font-mono text-xs text-white/60 shrink-0">20 questions</span>
+          <svg class="h-5 w-5 text-white/40 shrink-0 transition group-hover:text-white group-hover:translate-x-1 group-hover:-translate-y-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="7" y1="17" x2="17" y2="7"></line>
+            <polyline points="7 7 17 7 17 17"></polyline>
+          </svg>
+        </a>
+
+        <a href="#" class="group flex items-center gap-4 sm:gap-6 rounded-2xl border border-white/10 bg-[#141414] px-5 sm:px-6 py-4 sm:py-5 transition hover:border-white/30 hover:bg-white/5 hover:shadow-[0_0_40px_-12px_rgba(53,114,165,0.35)]">
+          <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/5 font-mono font-700 text-sm">27</span>
+          <div class="flex-1 min-w-0">
+            <h3 class="font-mono font-600 text-base mb-1">Security</h3>
+            <p class="text-sm text-white/60 truncate">Injection risks, unsafe deserialization, and secrets management in production Python.</p>
+          </div>
+          <span class="hidden sm:inline font-mono text-xs text-white/60 shrink-0">20 questions</span>
+          <svg class="h-5 w-5 text-white/40 shrink-0 transition group-hover:text-white group-hover:translate-x-1 group-hover:-translate-y-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="7" y1="17" x2="17" y2="7"></line>
+            <polyline points="7 7 17 7 17 17"></polyline>
+          </svg>
+        </a>
+
+        <a href="#" class="group flex items-center gap-4 sm:gap-6 rounded-2xl border border-white/10 bg-[#141414] px-5 sm:px-6 py-4 sm:py-5 transition hover:border-white/30 hover:bg-white/5 hover:shadow-[0_0_40px_-12px_rgba(53,114,165,0.35)]">
+          <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/5 font-mono font-700 text-sm">28</span>
+          <div class="flex-1 min-w-0">
+            <h3 class="font-mono font-600 text-base mb-1">Exercises &amp; Projects (Capstone)</h3>
+            <p class="text-sm text-white/60 truncate">Mixed-review scenarios combining every concept into real-world problem solving.</p>
+          </div>
+          <span class="hidden sm:inline font-mono text-xs text-white/60 shrink-0">20 questions</span>
+          <svg class="h-5 w-5 text-white/40 shrink-0 transition group-hover:text-white group-hover:translate-x-1 group-hover:-translate-y-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="7" y1="17" x2="17" y2="7"></line>
+            <polyline points="7 7 17 7 17 17"></polyline>
+          </svg>
+        </a>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="border-t border-white/10">
+    <div class="mx-auto max-w-[1440px] px-4 sm:px-8 py-12 flex flex-col sm:flex-row items-center justify-between gap-8">
+      <div class="flex items-center gap-2">
+        <span class="flex h-8 w-8 items-center justify-center rounded-xl bg-white text-black font-mono font-800 text-sm">
+          &gt;_
+        </span>
+        <span class="font-mono font-700 text-sm">
+          quiz<span class="text-white/40">://</span>
+        </span>
+        <span class="font-mono text-xs text-white/60 ml-4">&copy; 2026 &mdash; all rights reserved</span>
+      </div>
+      <div class="flex items-center gap-8">
+        <a href="#" class="font-mono text-xs text-white/60 hover:text-white transition">github</a>
+        <a href="#" class="font-mono text-xs text-white/60 hover:text-white transition">docs</a>
+        <a href="#" class="font-mono text-xs text-white/60 hover:text-white transition">status</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

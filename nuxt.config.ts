@@ -67,7 +67,7 @@ export default defineNuxtConfig({
       "/site.webmanifest": { static: true },
       "/manifest.webmanifest": { redirect: "/site.webmanifest" },
       "/robots.txt": { static: true },
-      "/favicon.png": { static: true },
+      "/favicon.png": { redirect: "/favicon.svg" },
     },
   },
   content: {

@@ -95,7 +95,7 @@ getUser(42)
 ::
 
 - [ ] ['order-1 for Ada'] — the chain automatically waits for the inner promise before continuing
-- [ ] Promise { <pending> } — the second `.then` runs before `getOrders` settles
+- [ ] `Promise { <pending> }` — the second `.then` runs before `getOrders` settles
 - [ ] [Promise] — a promise wrapped inside an array
 - [ ] Throws a TypeError because `.then` can't return a promise from inside another `.then`
 

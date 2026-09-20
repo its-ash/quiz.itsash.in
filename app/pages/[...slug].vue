@@ -156,7 +156,7 @@ definePageMeta({
   <section v-else class="relative z-10 py-12 md:py-16">
     <ReadingProgress />
 
-    <div class="mx-auto max-w-[1440px] px-4 sm:px-8">
+    <div class="mx-auto sm:px-8  max-w-[1440px]">
       <nav aria-label="Breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList"
         class="mb-10 flex flex-wrap items-center gap-2 font-mono text-xs text-c-muted-fg">
         <template v-for="(crumb, i) in breadcrumbs" :key="crumb.to">
@@ -169,7 +169,7 @@ definePageMeta({
         </template>
       </nav>
 
-      <article class="md-prose mx-auto max-w-3xl" itemscope itemtype="https://schema.org/Article">
+      <article itemscope itemtype="https://schema.org/Article">
         <meta itemprop="author" content="quiz" />
         <meta itemprop="publisher" content="quiz" />
         <meta itemprop="wordCount" :content="wordCount" />
